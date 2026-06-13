@@ -4,18 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Test Psico-Financiero · Lisbeth Ochoa</title>
-<meta property="og:title" content="Test Psico-Financiero · Lisbeth Ochoa">
-<meta property="og:description" content="Descubre el patrón mental que gobierna tu relación con el dinero. 10 preguntas · 5 minutos · Resultado inmediato.">
 <meta name="theme-color" content="#1B2B5E">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --navy:#1B2B5E;--purple:#5B3FA6;--teal:#0D9488;
-  --gold:#F59E0B;--coral:#E85D30;--pink:#BE185D;
-  --green:#10B981;--white:#FFFFFF;--light:#F4F6FC;
-  --dark:#334155;--gray:#64748B;
-}
+:root{--navy:#1B2B5E;--purple:#5B3FA6;--teal:#0D9488;--gold:#F59E0B;--coral:#E85D30;--pink:#BE185D;--green:#10B981;--light:#F4F6FC;--dark:#334155;--gray:#64748B}
 body{font-family:'Segoe UI',Arial,sans-serif;background:var(--light);color:var(--dark);min-height:100vh}
 .header{background:var(--navy);color:#fff;padding:1.5rem 1rem;text-align:center}
 .header-sub{font-size:.72rem;color:#A5B4FC;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.4rem}
@@ -26,7 +19,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--light);color:var(-
 .prog-meta{display:flex;justify-content:space-between;font-size:.75rem;color:var(--gray);margin-bottom:.4rem}
 .prog-bar{height:5px;background:#E2E8F0;border-radius:3px}
 .prog-fill{height:100%;border-radius:3px;background:var(--purple);transition:width .4s}
-.section-label{display:inline-block;font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:20px;background:#EDE9FB;color:var(--purple);margin-bottom:.9rem}
+.sec-lbl{display:inline-block;font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:20px;background:#EDE9FB;color:var(--purple);margin-bottom:.9rem}
 .question{font-size:1.05rem;font-weight:600;color:var(--navy);line-height:1.55;margin-bottom:1.1rem}
 .options{display:flex;flex-direction:column;gap:9px;margin-bottom:1.4rem}
 .opt{border:1.5px solid #E2E8F0;border-radius:10px;padding:.7rem .9rem;cursor:pointer;font-size:.9rem;color:var(--dark);background:#fff;text-align:left;line-height:1.45;transition:border-color .15s,background .15s;display:flex;gap:.75rem;align-items:flex-start;width:100%}
@@ -36,128 +29,83 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--light);color:var(-
 .opt.sel .opt-radio{background:var(--purple);border-color:var(--purple)}
 .opt-dot{width:8px;height:8px;border-radius:50%;background:#fff;opacity:0;transition:opacity .15s}
 .opt.sel .opt-dot{opacity:1}
-.nav{display:flex;justify-content:space-between;align-items:center;margin-top:.25rem}
+.nav{display:flex;justify-content:space-between;align-items:center}
 .btn{border:1.5px solid #E2E8F0;border-radius:9px;padding:.5rem 1.2rem;font-size:.875rem;cursor:pointer;background:#fff;color:var(--dark);font-weight:500;transition:all .15s}
 .btn:hover{background:var(--light)}
 .btn:disabled{opacity:.35;cursor:not-allowed}
-.btn-primary{background:var(--navy);color:#fff;border-color:var(--navy)}
-.btn-primary:hover{background:#2D3D6E}
+.btn-p{background:var(--navy);color:#fff;border-color:var(--navy)}
+.btn-p:hover{background:#2D3D6E}
 .counter{font-size:.8rem;color:var(--gray)}
 .form-group{margin-bottom:1rem}
 .form-label{display:block;font-size:.85rem;font-weight:600;color:var(--navy);margin-bottom:.4rem}
-.form-input{width:100%;border:1.5px solid #E2E8F0;border-radius:9px;padding:.6rem .9rem;font-size:.9rem;color:var(--dark);transition:border-color .15s;font-family:inherit}
+.form-input{width:100%;border:1.5px solid #E2E8F0;border-radius:9px;padding:.6rem .9rem;font-size:.9rem;color:var(--dark);font-family:inherit}
 .form-input:focus{outline:none;border-color:var(--purple)}
-.intro-title{font-size:1.2rem;font-weight:700;color:var(--navy);margin-bottom:.6rem}
-.intro-desc{font-size:.9rem;color:var(--gray);line-height:1.65;margin-bottom:1rem}
+.alert{background:#EFF6FF;border-left:3px solid var(--navy);padding:.75rem 1rem;border-radius:0 8px 8px 0;font-size:.85rem;color:var(--dark);line-height:1.55;margin-bottom:1.25rem}
 .tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:1.25rem}
 .tag{font-size:.75rem;padding:3px 10px;border-radius:20px;border:1px solid #E2E8F0;color:var(--gray);background:#fff}
-.alert{background:#EFF6FF;border-left:3px solid var(--navy);padding:.75rem 1rem;border-radius:0 8px 8px 0;font-size:.85rem;color:var(--dark);line-height:1.55;margin-bottom:1.25rem}
-
-/* ── RESULTADO ── */
-.result-header{border-radius:12px;padding:1.5rem;margin-bottom:1.25rem}
-.result-eyebrow{font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.35rem;opacity:.85}
-.result-name{font-size:1.4rem;font-weight:700;margin-bottom:.6rem}
-.result-desc{font-size:.9rem;line-height:1.7;opacity:.92}
-.section-title{font-size:.7rem;font-weight:600;color:var(--gray);text-transform:uppercase;letter-spacing:.05em;margin:1.25rem 0 .7rem}
-.bar-row{margin-bottom:.6rem}
-.bar-meta{display:flex;justify-content:space-between;font-size:.82rem;margin-bottom:4px}
+/* resultado */
+.res-header{border-radius:12px;padding:1.5rem;margin-bottom:1rem}
+.res-eye{font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;opacity:.85}
+.res-name{font-size:1.3rem;font-weight:700;margin:.35rem 0 .5rem}
+.res-desc{font-size:.88rem;line-height:1.68}
+.stitle{font-size:.7rem;font-weight:600;color:var(--gray);text-transform:uppercase;letter-spacing:.05em;margin:1.1rem 0 .6rem}
+.bar-row{margin-bottom:.55rem}
+.bar-meta{display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:3px}
 .bar-name{color:var(--gray)}
-.bar-val{font-weight:600;color:var(--dark)}
-.bar-track{height:8px;background:#E2E8F0;border-radius:4px}
+.bar-val{font-weight:600}
+.bar-track{height:7px;background:#E2E8F0;border-radius:4px}
 .bar-fill{height:100%;border-radius:4px;transition:width .7s .1s}
-.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.25rem}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem}
 .mini-card{border:1px solid #E2E8F0;border-radius:10px;padding:.85rem}
 .mini-title{font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.5rem;color:var(--gray)}
-.pill-list{display:flex;flex-wrap:wrap;gap:5px}
-.pill{font-size:.75rem;padding:3px 10px;border-radius:20px;border:1px solid #E2E8F0;color:var(--gray);line-height:1.5}
+.pill{font-size:.75rem;padding:2px 9px;border-radius:20px;border:1px solid #E2E8F0;color:var(--gray);display:inline-block;margin:2px}
 .pill.g{background:#ECFDF5;color:#085041;border-color:#6EE7B7}
 .pill.b{background:#FAECE7;color:#712B13;border-color:#F0997B}
-
-/* ── TÉCNICA ── */
 .tech-block{border:1px solid #E2E8F0;border-radius:12px;overflow:hidden;margin-bottom:1rem}
-.tech-head{padding:.9rem 1.1rem}
-.tech-head-title{font-size:.95rem;font-weight:700;color:#fff;margin-bottom:.2rem}
-.tech-head-sub{font-size:.75rem;color:rgba(255,255,255,.8)}
-.tech-body{padding:1.1rem}
-.tech-section{margin-bottom:1rem}
-.tech-section-title{font-size:.8rem;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.04em;margin-bottom:.5rem;padding-bottom:.3rem;border-bottom:1px solid #E2E8F0}
-.tech-intro{font-size:.875rem;color:var(--dark);line-height:1.65;margin-bottom:.75rem;padding:.75rem;background:var(--light);border-radius:8px;border-left:3px solid var(--gray)}
-.step-item{display:flex;gap:.75rem;align-items:flex-start;font-size:.875rem;color:var(--dark);line-height:1.6;margin-bottom:.65rem}
-.step-num{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:#fff;flex-shrink:0;margin-top:1px}
-.neuro-nota{background:#EFF6FF;border-left:3px solid var(--navy);padding:.85rem 1rem;border-radius:0 8px 8px 0;font-size:.85rem;color:var(--dark);line-height:1.65;font-style:italic;margin-top:.5rem}
-.week-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:1.25rem}
-.week-card{border:1px solid #E2E8F0;border-radius:10px;padding:.85rem}
-.week-num{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.4rem}
-.week-text{font-size:.8rem;color:var(--gray);line-height:1.55}
-.week-action{font-size:.78rem;font-weight:600;margin-top:.4rem;padding:.35rem .6rem;border-radius:6px;display:inline-block}
-.sec-profile{border:1px solid #E2E8F0;border-radius:10px;padding:1rem;margin-bottom:1.25rem}
-
-/* ── TARJETA PARA COMPARTIR ── */
-#share-card{
-  width:400px;background:var(--navy);border-radius:20px;
-  padding:0;overflow:hidden;display:none;
-  font-family:'Segoe UI',Arial,sans-serif;
-}
-.sc-header{padding:1.5rem;text-align:center}
-.sc-program{font-size:.65rem;color:#A5B4FC;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.3rem}
-.sc-test{font-size:.8rem;color:#94A3B8;margin-bottom:1rem}
-.sc-avatar{width:72px;height:72px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto .75rem;font-size:1.8rem;font-weight:700;border:3px solid}
-.sc-name{font-size:1rem;font-weight:700;color:#fff;margin-bottom:.2rem}
-.sc-profile-label{font-size:.65rem;letter-spacing:.06em;text-transform:uppercase;opacity:.8;margin-bottom:.25rem}
-.sc-profile-name{font-size:1.3rem;font-weight:700;margin-bottom:.2rem}
-.sc-profile-dim{font-size:.75rem;opacity:.85;margin-bottom:.75rem}
-.sc-bars{background:rgba(255,255,255,.08);border-radius:10px;padding:.9rem;margin:0 1.5rem .9rem}
-.sc-bar-row{display:flex;align-items:center;gap:.5rem;margin-bottom:.45rem}
-.sc-bar-label{font-size:.65rem;color:rgba(255,255,255,.7);width:110px;flex-shrink:0}
-.sc-bar-track{flex:1;height:5px;background:rgba(255,255,255,.15);border-radius:3px}
-.sc-bar-fill{height:100%;border-radius:3px}
-.sc-bar-val{font-size:.65rem;color:rgba(255,255,255,.8);width:28px;text-align:right;flex-shrink:0}
-.sc-desc{margin:0 1.5rem .9rem;font-size:.75rem;color:rgba(255,255,255,.75);line-height:1.55;text-align:center;font-style:italic}
-.sc-action{font-size:.7rem;color:rgba(255,255,255,.6);text-align:center;padding:.5rem 1.5rem}
-.sc-footer{background:rgba(255,255,255,.06);padding:.75rem 1.5rem;display:flex;justify-content:space-between;align-items:center}
-.sc-footer-name{font-size:.75rem;font-weight:700;color:#fff}
-.sc-footer-sub{font-size:.65rem;color:#94A3B8}
-.sc-gold-bar{height:4px;background:var(--gold)}
-
+.tech-head{padding:.85rem 1.1rem}
+.tech-head-title{font-size:.95rem;font-weight:700;color:#fff}
+.tech-head-sub{font-size:.75rem;color:rgba(255,255,255,.82);margin-top:.2rem}
+.tech-body{padding:1rem 1.1rem}
+.tech-box{font-size:.85rem;color:var(--dark);line-height:1.65;padding:.75rem;background:var(--light);border-radius:8px;margin-bottom:.75rem}
+.step-item{display:flex;gap:.7rem;align-items:flex-start;font-size:.875rem;color:var(--dark);line-height:1.6;margin-bottom:.6rem}
+.step-num{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;color:#fff;flex-shrink:0;margin-top:1px}
+.week-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:1rem}
+.week-card{border:1px solid #E2E8F0;border-radius:10px;padding:.8rem}
+.week-num{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.25rem}
+.week-tit{font-size:.78rem;font-weight:600;margin-bottom:.3rem}
+.week-txt{font-size:.77rem;color:var(--gray);line-height:1.5}
+.week-ac{font-size:.75rem;font-weight:600;padding:.3rem .6rem;border-radius:6px;display:inline-block;margin-top:.4rem}
+.neuro-box{background:#EFF6FF;border-left:3px solid var(--navy);padding:.85rem 1rem;border-radius:0 8px 8px 0;font-size:.84rem;color:var(--dark);line-height:1.65;font-style:italic;margin-bottom:1rem}
+.sec-prof{border:1px solid #E2E8F0;border-radius:10px;padding:1rem;margin-bottom:1rem}
 .action-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:1rem}
-.btn-share-img{padding:.6rem 1.2rem;font-size:.875rem;cursor:pointer;font-weight:600;border:none;border-radius:9px;background:var(--teal);color:#fff}
+.btn-pdf{padding:.65rem 1.3rem;font-size:.9rem;cursor:pointer;font-weight:600;border:none;border-radius:9px;background:var(--teal);color:#fff}
+.btn-pdf:disabled{opacity:.5;cursor:not-allowed}
 .btn-retry{padding:.6rem 1.2rem;font-size:.875rem;cursor:pointer;font-weight:500;border:1.5px solid #E2E8F0;border-radius:9px;background:#fff;color:var(--dark)}
 .cta-box{margin-top:1rem;padding:1rem 1.1rem;background:#FFFBEB;border-radius:10px;border-left:3px solid var(--gold);font-size:.875rem;color:var(--dark);line-height:1.6;text-align:center}
-
-@media(max-width:480px){
-  .card{margin:1rem .6rem;padding:1.25rem 1rem}
-  .two-col{grid-template-columns:1fr}
-  .week-grid{grid-template-columns:1fr}
-  .header-title{font-size:1.2rem}
-  #share-card{width:320px}
-}
+.footer{text-align:center;font-size:.75rem;color:var(--gray);padding:1.5rem 1rem 2.5rem;max-width:580px;margin:0 auto}
+@media(max-width:480px){.card{margin:1rem .6rem;padding:1.25rem 1rem}.two-col,.week-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-
 <div class="header">
   <div class="header-sub">Finanzas Personales Sin Complicaciones · Lisbeth Ochoa</div>
   <div class="header-title">Test Psico-Financiero</div>
   <div class="header-desc">Descubre el patrón mental que gobierna tu relación con el dinero</div>
 </div>
 
-<!-- INTRO -->
 <div class="card" id="intro-card">
-  <div class="intro-title">¿Por qué tus finanzas son como son?</div>
-  <div class="intro-desc">Este test identifica el perfil psicológico detrás de tus decisiones financieras. Basado en neurociencia, PNL y psicología del comportamiento — no en fórmulas matemáticas.</div>
+  <div style="font-size:1.2rem;font-weight:700;color:var(--navy);margin-bottom:.6rem">¿Por qué tus finanzas son como son?</div>
+  <div style="font-size:.9rem;color:var(--gray);line-height:1.65;margin-bottom:1rem">Este test identifica el perfil psicológico detrás de tus decisiones financieras. Basado en neurociencia, PNL y psicología del comportamiento — no en fórmulas matemáticas.</div>
   <div class="tags">
-    <span class="tag">🧠 Neurociencia</span>
-    <span class="tag">⚡ PNL</span>
-    <span class="tag">❤️ Psicología financiera</span>
-    <span class="tag">⏱️ 5 minutos</span>
+    <span class="tag">🧠 Neurociencia</span><span class="tag">⚡ PNL</span>
+    <span class="tag">❤️ Psicología financiera</span><span class="tag">⏱️ 5 minutos</span>
   </div>
-  <div class="alert">No hay respuestas correctas o incorrectas. Elige la que más se acerque a tu realidad actual, no a cómo quisieras ser. La honestidad es el único requisito.</div>
-  <button class="btn btn-primary" onclick="showData()" style="width:100%;padding:.75rem">Comenzar el test →</button>
+  <div class="alert">No hay respuestas correctas o incorrectas. Elige la que más se acerque a tu realidad actual, no a cómo quisieras ser.</div>
+  <button class="btn btn-p" onclick="showData()" style="width:100%;padding:.75rem">Comenzar el test →</button>
 </div>
 
-<!-- DATOS -->
 <div class="card" id="data-card" style="display:none">
-  <div class="intro-title" style="font-size:1rem;margin-bottom:1rem">Antes de empezar, cuéntanos quién eres</div>
+  <div style="font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:1rem">Antes de empezar, cuéntanos quién eres</div>
   <div class="form-group">
     <label class="form-label">Tu nombre completo</label>
     <input class="form-input" type="text" id="inp-nombre" placeholder="Escribe tu nombre aquí">
@@ -168,51 +116,40 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--light);color:var(-
   </div>
   <div style="display:flex;gap:10px;margin-top:.5rem">
     <button class="btn" onclick="showIntro()" style="flex:1">← Volver</button>
-    <button class="btn btn-primary" onclick="startTest()" style="flex:2">Comenzar →</button>
+    <button class="btn btn-p" onclick="startTest()" style="flex:2">Comenzar →</button>
   </div>
 </div>
 
-<!-- TEST -->
 <div class="card" id="test-card" style="display:none">
   <div class="prog-wrap">
     <div class="prog-meta"><span id="prog-sec"></span><span id="prog-num"></span></div>
     <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:10%"></div></div>
   </div>
-  <div class="section-label" id="sec-label"></div>
+  <div class="sec-lbl" id="sec-label"></div>
   <div class="question" id="q-text"></div>
   <div class="options" id="options"></div>
   <div class="nav">
     <button class="btn" id="btn-back" onclick="go(-1)">← Anterior</button>
     <span class="counter" id="counter"></span>
-    <button class="btn btn-primary" id="btn-next" onclick="go(1)" disabled>Siguiente →</button>
+    <button class="btn btn-p" id="btn-next" onclick="go(1)" disabled>Siguiente →</button>
   </div>
 </div>
 
-<!-- RESULTADO -->
 <div class="card" id="result-card" style="display:none"></div>
-
-<!-- TARJETA COMPARTIR (oculta, se captura con html2canvas) -->
-<div style="position:fixed;left:-9999px;top:0;padding:10px" id="share-wrap">
-  <div id="share-card"></div>
-</div>
-
-<div class="footer" style="text-align:center;font-size:.75rem;color:var(--gray);padding:1.5rem 1rem 2.5rem;max-width:580px;margin:0 auto">
-  <strong>Finanzas Personales Sin Complicaciones</strong> · con Lisbeth Ochoa<br>
-  Programa de transformación financiera · 90 días · 3 módulos
-</div>
+<div class="footer"><strong>Finanzas Personales Sin Complicaciones</strong> · Lisbeth Ochoa<br>Programa de transformación financiera · 90 días · 3 módulos</div>
 
 <script>
 const DIMS=['E','M','C','I','ID'];
-const DNAMES={E:'Escasez',M:'Miedo',C:'Control',I:'Impulsividad',ID:'Identidad neg.'};
-const DFULL={E:'Mentalidad de escasez',M:'Miedo financiero',C:'Necesidad de control',I:'Impulsividad financiera',ID:'Identidad financiera negativa'};
-const DCOLORS={E:'#7F77DD',M:'#F0997B',C:'#1D9E75',I:'#EF9F27',ID:'#ED93B1'};
+const DNAMES={E:'Mentalidad de escasez',M:'Miedo financiero',C:'Necesidad de control',I:'Impulsividad financiera',ID:'Identidad fin. negativa'};
+const DSHORT={E:'Escasez',M:'Miedo',C:'Control',I:'Impulsividad',ID:'Identidad neg.'};
+const DCOLS={E:'#7F77DD',M:'#F0997B',C:'#1D9E75',I:'#EF9F27',ID:'#ED93B1'};
 
 const QS=[
   {sec:'Mi infancia y el dinero',q:'¿Qué frase sobre el dinero escuchabas más en tu casa cuando eras niño/a?',opts:[
     {t:'"Nunca alcanza" / "Estamos pelados" / "El dinero no da"',s:{E:2,M:1}},
     {t:'"El dinero es la raíz de los males" / "Los ricos son malos"',s:{ID:2,M:1}},
     {t:'"Hay que guardar para cuando haya" / "No se puede confiar en nadie"',s:{C:2,M:1}},
-    {t:'No hablaban de dinero — era un tema prohibido o ignorado en casa',s:{ID:1,M:2}},
+    {t:'No hablaban de dinero — era un tema prohibido o ignorado',s:{ID:1,M:2}},
   ]},
   {sec:'Mis emociones con el dinero',q:'Cuando piensas en revisar tus cuentas bancarias, ¿qué sientes de forma más inmediata?',opts:[
     {t:'Ansiedad o angustia — prefiero no mirar',s:{M:3}},
@@ -223,271 +160,187 @@ const QS=[
   {sec:'Mis decisiones de compra',q:'¿Qué te lleva con más frecuencia a hacer una compra no planificada?',opts:[
     {t:'El estrés, la tristeza, el aburrimiento o la ansiedad',s:{I:3}},
     {t:'Una oferta que siento que "no puedo dejar pasar"',s:{I:2,E:1}},
-    {t:'Casi nunca hago compras no planificadas — todo está calculado',s:{C:3}},
-    {t:'"Si no lo compro ahora, después no habrá" — el miedo a quedarse sin',s:{E:3}},
+    {t:'Casi nunca hago compras no planificadas — todo calculado',s:{C:3}},
+    {t:'"Si no lo compro ahora, después no habrá"',s:{E:3}},
   ]},
   {sec:'Mi relación con las deudas',q:'¿Cuál de estas frases describe mejor tu relación actual con las deudas?',opts:[
     {t:'Tengo varias y me cuesta salir — es un ciclo que se repite',s:{E:1,I:1,ID:2}},
     {t:'Me generan pánico — haría cualquier cosa por no tener ninguna',s:{M:3}},
     {t:'Las manejo de forma organizada aunque me generen algo de estrés',s:{C:2}},
-    {t:'Las veo como algo normal — todo el mundo las tiene de todos modos',s:{ID:2,I:1}},
+    {t:'Las veo como algo normal — todo el mundo las tiene',s:{ID:2,I:1}},
   ]},
-  {sec:'Mi creencia más profunda',q:'¿Cuál de estas frases describe mejor tu creencia más profunda sobre el dinero?',opts:[
+  {sec:'Mi creencia más profunda',q:'¿Cuál frase describe mejor tu creencia más profunda sobre el dinero?',opts:[
     {t:'"Para mí, ganar mucho dinero no es algo realista"',s:{E:3,ID:1}},
     {t:'"Si tengo dinero, de alguna forma lo voy a perder"',s:{M:2,E:1}},
     {t:'"El dinero solo trae conflictos y problemas"',s:{ID:3}},
     {t:'"Nunca soy suficientemente bueno/a para manejar bien el dinero"',s:{ID:2,M:1}},
   ]},
   {sec:'El dinero en mis relaciones',q:'¿Cómo manejas el tema del dinero con tu pareja o familia cercana?',opts:[
-    {t:'Es fuente de conflicto frecuente — preferimos evitar el tema',s:{M:1,I:1,ID:1}},
-    {t:'Yo controlo todo — me genera mucha ansiedad si no lo hago',s:{C:3}},
-    {t:'Cada quien maneja lo suyo — no hablamos mucho de finanzas',s:{ID:2}},
-    {t:'Tenemos conversaciones abiertas y tomamos decisiones juntos/as',s:{}},
+    {t:'Es fuente de conflicto — preferimos evitar el tema',s:{M:1,I:1,ID:1}},
+    {t:'Yo controlo todo — me genera ansiedad si no lo hago',s:{C:3}},
+    {t:'Cada quien maneja lo suyo — no hablamos de finanzas',s:{ID:2}},
+    {t:'Tenemos conversaciones abiertas y decidimos juntos',s:{}},
   ]},
-  {sec:'Mi relación con el ahorro',q:'¿Cuál es la razón principal por la que te cuesta ahorrar de forma consistente?',opts:[
-    {t:'Siempre aparece algo imprevisto que se lleva lo que intenté guardar',s:{E:2,I:1}},
-    {t:'Siento que con lo que gano no alcanza para ahorrar de todas formas',s:{E:3}},
-    {t:'No me cuesta ahorrar — de hecho me cuesta gastar aunque sea necesario',s:{C:2}},
-    {t:'Gasto de más en momentos emocionales y después no queda nada',s:{I:3}},
+  {sec:'Mi relación con el ahorro',q:'¿Cuál es la razón principal por la que te cuesta ahorrar consistentemente?',opts:[
+    {t:'Siempre aparece algo imprevisto que se lleva lo que ahorré',s:{E:2,I:1}},
+    {t:'Con lo que gano no alcanza para ahorrar',s:{E:3}},
+    {t:'No me cuesta — me cuesta gastar aunque sea necesario',s:{C:2}},
+    {t:'Gasto en momentos emocionales y después no queda nada',s:{I:3}},
   ]},
   {sec:'Mi autoconcepto financiero',q:'Cuando alguien te da un consejo financiero que tiene sentido, ¿cuál es tu reacción más honesta?',opts:[
     {t:'"Eso funciona para otros, pero para mí es diferente"',s:{ID:3,E:1}},
-    {t:'Me interesa pero en el fondo siento que no seré capaz de aplicarlo',s:{ID:2,M:1}},
-    {t:'Necesito entenderlo muy bien y planificarlo antes de intentar algo',s:{C:3}},
-    {t:'Lo escucho pero termino haciendo lo mismo de siempre',s:{I:2,ID:1}},
+    {t:'Me interesa pero siento que no seré capaz de aplicarlo',s:{ID:2,M:1}},
+    {t:'Necesito entenderlo muy bien antes de intentar algo',s:{C:3}},
+    {t:'Lo escucho pero hago lo mismo de siempre',s:{I:2,ID:1}},
   ]},
   {sec:'Mis patrones de autosabotaje',q:'¿Cuál de estos patrones reconoces más claramente en ti?',opts:[
-    {t:'Gano razonablemente pero el dinero desaparece sin saber bien cómo',s:{I:2,ID:2}},
-    {t:'Cuando las cosas van bien económicamente, algo siempre lo interrumpe',s:{ID:3}},
-    {t:'Me cuesta cobrar lo que valgo, pedir un aumento o ponerme un precio',s:{ID:2,E:1}},
-    {t:'Tengo miedo permanente de que no alcance aunque generalmente sí alcanza',s:{E:3}},
+    {t:'Gano razonablemente pero el dinero desaparece sin saber cómo',s:{I:2,ID:2}},
+    {t:'Cuando las cosas van bien económicamente, algo lo interrumpe',s:{ID:3}},
+    {t:'Me cuesta cobrar lo que valgo o pedir un aumento',s:{ID:2,E:1}},
+    {t:'Miedo permanente a que no alcance aunque generalmente sí alcanza',s:{E:3}},
   ]},
-  {sec:'El cambio y el futuro',q:'Si tuvieras el doble de ingresos desde mañana, ¿qué crees honestamente que cambiaría?',opts:[
-    {t:'Probablemente gastaría el doble — el problema no está en el ingreso',s:{I:3,ID:1}},
-    {t:'Me sentiría más seguro/a pero seguiría teniendo miedo de perderlo',s:{M:3,E:1}},
-    {t:'Lo organizaría todo perfectamente — ya tengo el plan en mente',s:{C:3}},
-    {t:'Saldaría deudas y empezaría a construir algo sólido para el futuro',s:{}},
+  {sec:'El cambio y el futuro',q:'Si tuvieras el doble de ingresos desde mañana, ¿qué cambiaría honestamente?',opts:[
+    {t:'Probablemente gastaría el doble — el problema no es el ingreso',s:{I:3,ID:1}},
+    {t:'Me sentiría más seguro/a pero seguiría con miedo de perderlo',s:{M:3,E:1}},
+    {t:'Lo organizaría todo perfectamente — ya tengo el plan',s:{C:3}},
+    {t:'Saldaría deudas y empezaría a construir algo sólido',s:{}},
   ]},
 ];
 
-const PROFILES={
-  E:{
-    name:'El Pensador de Escasez',dim:'Mentalidad de escasez',emoji:'🧠',
-    col:'#534AB7',soft:'#EDE9FB',tc:'#3C3489',
-    desc:'Tu cerebro opera desde un estado de déficit permanente. Aunque haya recursos disponibles, sientes que no alcanza. Esta programación viene de la infancia y activa la amígdala (el centro del miedo del cerebro) cada vez que piensas en dinero, bloqueando la toma de decisiones racional en la corteza prefrontal. El resultado: decides desde el miedo y la carencia, no desde la posibilidad.',
-    origen:'Infancia marcada por escasez real o percibida. Frases repetidas como "nunca nos alcanza", "el dinero no es para nosotros" o "hay que guardar porque nunca se sabe". Antes de los 7 años, el cerebro absorbió estas frases como verdades absolutas.',
-    str:['Valoras profundamente lo que tienes','Eres frugal y cuidadoso/a con los recursos','Alta resiliencia ante dificultades económicas','Capacidad de vivir con menos cuando es necesario'],
-    blk:['Saboteas tu crecimiento económico sin darte cuenta','Te cuesta recibir dinero, éxito o reconocimiento','Ves el dinero como algo que siempre se acaba','Dificultad para invertir o tomar riesgos calculados'],
-    t1:{
-      nombre:'PNL: Reencuadre Cognitivo de la Escasez',
-      origen:'Programación Neurolingüística · Bandler & Grinder',
-      tiempo:'15 minutos diarios · 21 días',
-      objetivo:'Identificar y transformar el marco mental de escasez en uno de suficiencia y posibilidad.',
-      porQue:'El reencuadre en PNL trabaja sobre el marco de referencia desde el cual interpretas la realidad. No cambia los hechos, cambia el significado que les das. Al cambiar el significado, cambias la respuesta emocional y, con ella, la conducta financiera. Tu cerebro cree lo que le repites con emoción y consistencia.',
-      pasos:[
-        'Escribe la creencia de escasez más fuerte que tienes. Ejemplo exacto: "Nunca me alcanza el dinero, no importa cuánto gane."',
-        'Pregúntate con honestidad: ¿Es esto absolutamente verdad en el 100% de los casos? ¿Ha habido momentos en tu vida donde SÍ alcanzó? Escribe esos momentos.',
-        'Identifica qué beneficio oculto te ha dado creer esto: ¿te protege de decepcionar a otros? ¿justifica no intentarlo? ¿te da una razón para no arriesgarte? El cerebro siempre tiene una razón.',
-        'Escribe la versión reencuadrada en presente y en primera persona. No perfecta, solo posible. Ejemplo: "En el pasado el dinero fue escaso. Hoy tengo la capacidad de aprender a crear suficiencia."',
-        'Léela en voz alta frente al espejo 3 veces cada mañana durante 21 días consecutivos. Al principio se sentirá falso — eso es normal. Esa incomodidad es la creencia antigua resistiéndose al cambio.',
-      ],
-    },
-    t2:{
-      nombre:'Neurociencia: Activación del Nervio Vago (Regulación del SNA)',
-      origen:'Teoría Polivagal · Stephen Porges',
-      tiempo:'5 minutos · antes de cualquier decisión financiera',
-      objetivo:'Desactivar la respuesta de amenaza del sistema nervioso antes de tomar decisiones financieras para acceder a la racionalidad.',
-      porQue:'La mentalidad de escasez activa el sistema nervioso simpático (modo lucha-huida), inundando el cuerpo de cortisol. Las decisiones tomadas en este estado son reactivas, cortoplacistas y basadas en el miedo. Activar el nervio vago (a través de la respiración) activa el sistema parasimpático, donde la corteza prefrontal puede trabajar correctamente y tomar decisiones racionales.',
-      pasos:[
-        'Antes de revisar tus cuentas, pagar deudas o tomar cualquier decisión financiera: siéntate en silencio, cierra los ojos y haz una pausa consciente.',
-        'Inhala por la nariz contando 4 tiempos — retén el aire 4 tiempos — exhala lentamente por la boca durante 6 tiempos. La exhalación larga es la clave: activa el nervio vago directamente.',
-        'Repite este ciclo 4 veces completas. Coloca una mano en el pecho y siente tu corazón desacelerar.',
-        'Di en voz baja o mentalmente: "Estoy seguro/a. Tengo lo suficiente para este momento. Puedo ver esto con claridad."',
-        'Solo después de completar esta preparación, abre tu banco, revisa tus cuentas o toma la decisión financiera que necesitas tomar.',
-      ],
-      nota:'Esta técnica está respaldada por estudios de la Universidad de Harvard sobre la respuesta de relajación. Practica primero en momentos neutros, antes de usarla en situaciones de alta carga emocional financiera. Con repetición, el solo acto de sentarte a revisar tus finanzas dejará de activar la respuesta de amenaza.',
-    },
-    semanas:[
-      {n:'Semana 1',titulo:'Conciencia sin juicio',texto:'Cada mañana escribe 3 cosas que SÍ tienes (no que deseas tener). Cuando aparezca el pensamiento de escasez, nómbralo sin pelear: "Ahí está mi cerebro de escasez." El simple acto de nombrarlo reduce su poder.',accion:'Practica la respiración vagal al menos 1 vez al día, aunque no sea en momento de estrés.'},
-      {n:'Semana 2',titulo:'Reencuadre activo',texto:'Aplica la técnica de respiración vagal antes de CADA revisión financiera. Por cada pensamiento de escasez que notes, escribe inmediatamente la versión reencuadrada en tu cuaderno.',accion:'Lee tu nueva creencia reencuadrada en voz alta frente al espejo cada mañana — sin saltarte ningún día.'},
-      {n:'Semana 3',titulo:'Acción desde la suficiencia',texto:'Haz al menos 1 acción financiera pequeña desde la abundancia: transfiere aunque sea $5.000 a una cuenta de ahorro, paga algo extra de una deuda, o invierte en algo pequeño.',accion:'Al finalizar los 21 días: ¿qué cambió en cómo piensas sobre el dinero? Escríbelo. Esa evidencia es tu nuevo punto de partida.'},
-    ],
-    nt:'Tu amígdala se activa cada vez que piensas en dinero, generando cortisol que literalmente bloquea la corteza prefrontal (tu centro de decisiones racionales). La respiración vagal interrumpe ese ciclo activando el sistema nervioso parasimpático. La gratitud diaria y el reencuadre crean nuevas conexiones neuronales (neuroplasticidad) que, con práctica de 21 días, desactivan esa respuesta de miedo automática.',
+const P={
+  E:{name:'El Pensador de Escasez',dim:'Mentalidad de escasez',emoji:'🧠',col:'#534AB7',soft:'#EDE9FB',tc:'#3C3489',
+    desc:'Tu cerebro opera desde un estado de déficit permanente. Aunque haya recursos disponibles, sientes que no alcanza. Esta programación viene de la infancia y activa la amígdala (el centro del miedo) cada vez que piensas en dinero, bloqueando las decisiones racionales en tu corteza prefrontal. Decides desde el miedo y la carencia, no desde la posibilidad.',
+    origen:'Infancia marcada por escasez real o percibida. Frases como "nunca alcanza", "el dinero no es para nosotros". Antes de los 7 años, el cerebro absorbió estas frases como verdades absolutas sin poder cuestionarlas.',
+    str:['Valoras profundamente lo que tienes','Eres frugal y cuidadoso/a','Alta resiliencia ante dificultades','Capacidad de vivir con menos cuando es necesario'],
+    blk:['Saboteas tu crecimiento sin darte cuenta','Te cuesta recibir éxito o dinero sin culpa','Ves el dinero como algo que siempre se acaba','Dificultad para invertir o tomar riesgos calculados'],
+    t1:{nom:'PNL: Reencuadre Cognitivo de la Escasez',orig:'Bandler & Grinder · PNL',tiempo:'15 minutos diarios · 21 días',
+      obj:'Identificar y transformar el marco mental de escasez en uno de suficiencia y posibilidad real.',
+      pq:'El reencuadre en PNL trabaja sobre el marco desde el cual interpretas la realidad. No cambia los hechos — cambia el significado que les das. Al cambiar el significado, cambias la respuesta emocional y, con ella, la conducta financiera. Tu cerebro cree y refuerza lo que le repites con consistencia.',
+      pasos:['Escribe tu creencia de escasez más fuerte exactamente como aparece en tu mente. Ejemplo: "Nunca me alcanza el dinero, no importa cuánto gane."',
+        '¿Es esto 100% verdad en absolutamente todos los casos de tu vida? ¿Ha habido momentos donde sí alcanzó? Escribe esos momentos concretos.',
+        'Identifica el beneficio oculto de creerla: ¿te protege de decepcionar? ¿justifica no arriesgarte? El cerebro siempre tiene una razón para mantener cada creencia.',
+        'Escribe la versión reencuadrada en presente y primera persona. No perfecta, solo posible: "Estoy aprendiendo a crear suficiencia en mi vida."',
+        'Léela en voz alta frente al espejo 3 veces cada mañana durante 21 días. Al principio se sentirá falso — esa incomodidad es la creencia antigua resistiéndose.']},
+    t2:{nom:'Activación del Nervio Vago (Neurociencia)',orig:'Teoría Polivagal · Stephen Porges',tiempo:'5 minutos · antes de cada decisión financiera',
+      obj:'Desactivar la respuesta de amenaza del sistema nervioso para tomar decisiones financieras desde la calma.',
+      pq:'La mentalidad de escasez activa el sistema nervioso simpático (modo lucha-huida), inundando el cuerpo de cortisol. Las decisiones en este estado son reactivas y cortoplacistas. Activar el nervio vago mueve al sistema parasimpático, donde la corteza prefrontal puede trabajar correctamente y decidir con claridad.',
+      pasos:['Antes de revisar cuentas o tomar decisiones financieras: siéntate en silencio y cierra los ojos.',
+        'Inhala por la nariz 4 tiempos — retén 4 tiempos — exhala lentamente por la boca 6 tiempos. La exhalación larga activa el nervio vago directamente.',
+        'Repite 4 ciclos completos. Coloca una mano en el pecho y siente tu corazón desacelerar.',
+        'Di: "Estoy seguro/a. Tengo lo suficiente para este momento. Puedo ver esto con claridad."',
+        'Solo después de completar esta preparación, toma la decisión o revisión financiera que necesitas.']},
+    sem:[{n:'Semana 1',t:'Conciencia sin juicio',d:'Escribe 3 cosas que SÍ tienes cada mañana. Cuando aparezca el pensamiento de escasez, nómbralo: "Ahí está mi cerebro de escasez." Nombrarlo reduce su poder.',a:'Practica la respiración vagal al menos 1 vez al día.'},
+      {n:'Semana 2',t:'Reencuadre activo',d:'Aplica la respiración vagal antes de CADA revisión financiera. Por cada pensamiento de escasez, escribe inmediatamente la versión reencuadrada.',a:'Lee tu nueva creencia en voz alta frente al espejo cada mañana.'},
+      {n:'Semana 3',t:'Acción desde la suficiencia',d:'Haz 1 acción financiera pequeña desde la abundancia: transfiere algo a ahorro, paga extra de una deuda, invierte algo aunque sea pequeño.',a:'Al finalizar: ¿qué cambió en cómo piensas sobre el dinero? Escríbelo.'}],
+    nt:'Tu amígdala se activa con el dinero generando cortisol que bloquea la corteza prefrontal. La respiración vagal interrumpe ese ciclo. La gratitud diaria y el reencuadre crean nuevas conexiones neuronales (neuroplasticidad) que con práctica constante de 21 días desactivan esa respuesta automática de miedo.',
   },
-  M:{
-    name:'El Evitador Ansioso',dim:'Miedo financiero',emoji:'😰',
-    col:'#D85A30',soft:'#FAECE7',tc:'#712B13',
-    desc:'El dinero te genera tanta ansiedad que tu respuesta principal es evitar — no revisar cuentas, no abrir estados de cuenta, no hablar del tema, no tomar decisiones. Esta evitación te protege del dolor inmediato pero hace que los problemas financieros crezcan sin control en silencio. Es un ciclo: evitas porque duele, y porque evitas, duele más cuando finalmente miras.',
-    origen:'Experiencias de pérdida económica, deudas familiares graves, vergüenza asociada al dinero o conflictos intensos en la infancia o adolescencia. El cerebro aprendió que el dinero = peligro emocional, y desarrolló la evitación como mecanismo de protección.',
-    str:['Eres extremadamente cauto/a ante riesgos financieros','Rara vez actúas por impulso o euforia','Tienes conciencia del peligro financiero','Valoras la estabilidad emocional sobre el lujo'],
-    blk:['Evitar información financiera hace que la situación empeore','El miedo te paraliza ante oportunidades reales','Delegas decisiones importantes en otros por no querer ver','El estrés financiero silencioso afecta tu salud y relaciones'],
-    t1:{
-      nombre:'Terapia de Exposición Gradual',
-      origen:'Terapia Cognitivo-Conductual (CBT) · Aaron Beck',
-      tiempo:'5-10 minutos diarios · 21 días progresivos',
-      objetivo:'Desensibilizar la respuesta de ansiedad ante los estímulos financieros mediante exposición progresiva y segura, permitiendo que el cerebro aprenda que revisar las finanzas no es peligroso.',
-      porQue:'La evitación mantiene el miedo porque nunca permite que el cerebro aprenda que el estímulo NO es peligroso. Cada vez que evitas revisar tus cuentas, tu cerebro registra "sobreviví al peligro evitándolo" y refuerza la evitación. La exposición gradual permite que la amígdala actualice su base de datos: revisar mis cuentas no me destruye. Cada exposición exitosa debilita el circuito del miedo.',
-      pasos:[
-        'NIVEL 1 (Días 1-3): Abre tu aplicación bancaria o sitio web. Mira únicamente el saldo total. Cierra. Respira. No hagas nada más. Repite durante 3 días consecutivos.',
-        'NIVEL 2 (Días 4-6): Abre tu banco. Lee los últimos 3 movimientos. Cierra. Aún no analices ni juzgues — solo lee como si fueran datos de otra persona.',
-        'NIVEL 3 (Días 7-10): Revisa todos los movimientos de la semana completa. Escribe el total gastado en papel. Sin juicio, sin reacciones — solo el dato.',
-        'NIVEL 4 (Días 11-14): Clasifica los gastos de la semana por categoría (comida, transporte, ocio, etc.). Solo clasificar. Este paso es información, no sentencia.',
-        'NIVEL 5 (Días 15-21): Analiza con curiosidad genuina: ¿Qué me dicen estos números? ¿Qué decido a partir de esta información? Ahora sí puedes evaluar y planear.',
-        'CELEBRA cada nivel completado, aunque parezca pequeño. Tu cerebro necesita la recompensa para consolidar el nuevo circuito neuronal y reemplazar el antiguo.',
-      ],
-    },
-    t2:{
-      nombre:'Protocolo RAIN para el Miedo Financiero',
-      origen:'Mindfulness · Tara Brach — basado en neurociencia del miedo',
-      tiempo:'15 minutos · aplicar cada vez que la ansiedad financiera aparece',
-      objetivo:'Transformar la relación con el miedo financiero desde la resistencia y la huida hacia la aceptación consciente que reduce la activación de la amígdala.',
-      porQue:'Cuando nombramos una emoción, la actividad de la amígdala disminuye y aumenta la actividad de la corteza prefrontal — literalmente "bajamos el volumen" del miedo al ponerle nombre. La resistencia amplifica el miedo; la aceptación lo disminuye. Este protocolo usa ese mecanismo neurológico de forma sistemática.',
-      pasos:[
-        'R — RECONOCER: Nombra en voz alta o mentalmente lo que sientes. "Noto que hay miedo. Noto que hay ansiedad cuando pienso en el dinero." El simple acto de nombrarlo reduce la actividad de la amígdala según estudios de neuroimagen.',
-        'A — ACEPTAR: No pelees con la emoción ni intentes suprimirla. Di: "Está bien que sienta esto. Este miedo tiene sentido dado lo que viví. No tengo que eliminarlo para seguir adelante."',
-        'I — INVESTIGAR: Con curiosidad genuina y sin juicio: ¿Dónde sientes este miedo en tu cuerpo? ¿En el pecho, el estómago, la garganta? ¿A qué tiene miedo exactamente? ¿Qué es lo peor que imagina que pasaría si miraras tus cuentas?',
-        'N — NUTRIR: Dale a esa parte de ti lo que necesita. Coloca una mano en el pecho y di con calma: "Estoy aquí. Estás seguro/a. Vamos a resolver esto juntos. No tienes que enfrentar esto solo/a."',
-      ],
-      nota:'Usa este protocolo cada vez que sientas resistencia a revisar, planear o hablar sobre dinero. Con práctica constante, el ciclo completo toma 5 minutos y puede hacerse en cualquier lugar, incluso en el baño antes de abrir la app del banco.',
-    },
-    semanas:[
-      {n:'Semana 1',titulo:'Exposición mínima con seguridad',texto:'3 días a la semana (lunes, miércoles, viernes): abre tu banco, mira solo el saldo, cierra. Anota del 1 al 10 tu nivel de ansiedad antes y después de cada vez.',accion:'Aplica el protocolo RAIN cada vez que el número de ansiedad supere 6. Celebra cada revisión completada.'},
-      {n:'Semana 2',titulo:'Ampliando la ventana de tolerancia',texto:'5 días a la semana: 5 minutos revisando movimientos del banco. Anota solo los datos sin evaluar. Habla de dinero al menos 1 vez con alguien de confianza, aunque sea 5 minutos.',accion:'Escribe 3 datos financieros positivos que encontraste esta semana, aunque parezcan pequeños.'},
-      {n:'Semana 3',titulo:'Tomando acción desde la calma',texto:'Completa tu diagnóstico financiero completo (ingresos, gastos, deudas). Toma 1 decisión financiera activa: pagar algo, llamar al banco, abrir una cuenta de ahorro.',accion:'Mide tu nivel de ansiedad al inicio vs. al final de la semana. ¿Bajó? Esa diferencia es neuroplasticidad real.'},
-    ],
-    nt:'La evitación alimenta el miedo porque cada vez que evitas revisar tus cuentas, tu cerebro confirma que es "peligroso" y refuerza el circuito. La exposición gradual permite que la amígdala actualice su base de datos de amenazas. En neurociencia esto se llama extinción del miedo condicionado — el mismo mecanismo usado en terapia de fobias. Con repetición consistente, la ansiedad baja significativamente en 21 días.',
+  M:{name:'El Evitador Ansioso',dim:'Miedo financiero',emoji:'😰',col:'#D85A30',soft:'#FAECE7',tc:'#712B13',
+    desc:'El dinero te genera tanta ansiedad que tu respuesta principal es evitar — no revisar cuentas, no abrir estados de cuenta, no hablar del tema. La evitación protege del dolor inmediato pero los problemas financieros crecen sin control en silencio. Es un ciclo: evitas porque duele, y porque evitas, duele más cuando finalmente miras.',
+    origen:'Experiencias de pérdida económica, deudas familiares graves o vergüenza asociada al dinero en la infancia. El cerebro aprendió que dinero = peligro emocional y desarrolló la evitación como mecanismo de protección.',
+    str:['Eres extremadamente cauto/a ante riesgos','Rara vez actúas por impulso o euforia','Conciencia del peligro financiero','Valoras la estabilidad emocional'],
+    blk:['Evitar información financiera empeora la situación','El miedo paraliza ante oportunidades reales','Delegas decisiones importantes en otros','El estrés silencioso afecta tu salud y relaciones'],
+    t1:{nom:'Terapia de Exposición Gradual (CBT)',orig:'Aaron Beck · Terapia Cognitivo-Conductual',tiempo:'5-10 minutos diarios · 21 días progresivos',
+      obj:'Desensibilizar la respuesta de ansiedad ante estímulos financieros mediante exposición progresiva y segura.',
+      pq:'La evitación mantiene el miedo porque nunca permite que el cerebro aprenda que el estímulo NO es peligroso. Cada vez que evitas, el cerebro registra "sobreviví evitándolo" y refuerza el patrón. La exposición gradual permite que la amígdala actualice su base de datos: revisar mis cuentas no me destruye.',
+      pasos:['NIVEL 1 (Días 1-3): Abre tu banco, mira solo el saldo, cierra. Respira antes y después. Repite 3 días.',
+        'NIVEL 2 (Días 4-6): Abre tu banco. Lee los últimos 3 movimientos. Cierra. Aún no analices.',
+        'NIVEL 3 (Días 7-10): Revisa todos los movimientos de la semana. Escribe el total. Sin juicio.',
+        'NIVEL 4 (Días 11-14): Clasifica los gastos por categoría. Solo clasificar, no evaluar todavía.',
+        'NIVEL 5 (Días 15-21): Analiza con curiosidad: ¿Qué me dicen estos números? ¿Qué decido? Celebra cada nivel — el cerebro necesita recompensa para consolidar el nuevo circuito.']},
+    t2:{nom:'Protocolo RAIN para el Miedo Financiero',orig:'Mindfulness · Tara Brach',tiempo:'15 minutos · aplicar cuando la ansiedad aparece',
+      obj:'Transformar la relación con el miedo financiero desde la resistencia hacia la aceptación consciente.',
+      pq:'Cuando nombramos una emoción, la actividad de la amígdala disminuye y aumenta la corteza prefrontal — "bajamos el volumen" del miedo al ponerle nombre. La resistencia amplifica; la aceptación disminuye.',
+      pasos:['R — RECONOCER: Nombra lo que sientes. "Noto que hay miedo." Solo nombrarlo reduce la actividad de la amígdala.',
+        'A — ACEPTAR: "Está bien que sienta esto. Este miedo tiene sentido dado lo que viví. No tengo que eliminarlo para seguir."',
+        'I — INVESTIGAR: ¿Dónde sientes el miedo en tu cuerpo? ¿A qué tiene miedo exactamente? ¿Qué es lo peor que imagina?',
+        'N — NUTRIR: Mano en el pecho. "Estoy aquí. Estás seguro/a. Vamos a resolver esto juntos. No estás solo/a."']},
+    sem:[{n:'Semana 1',t:'Exposición mínima',d:'3 veces por semana: abre tu banco, mira el saldo, cierra. Anota del 1 al 10 tu ansiedad antes y después de cada vez.',a:'Aplica RAIN cuando la ansiedad supere 6. Celebra cada revisión completada.'},
+      {n:'Semana 2',t:'Ampliando la tolerancia',d:'5 días: 5 minutos revisando movimientos sin evaluar. Habla de dinero 1 vez con alguien de confianza, aunque sean 5 minutos.',a:'Escribe 3 datos financieros positivos que encontraste esta semana.'},
+      {n:'Semana 3',t:'Acción desde la calma',d:'Completa tu diagnóstico financiero completo. Toma 1 decisión activa: pagar algo, llamar al banco, abrir una cuenta.',a:'Mide ansiedad inicio vs. fin de semana. ¿Bajó? Eso es neuroplasticidad real.'}],
+    nt:'Cada vez que evitas revisar tus cuentas, tu cerebro confirma que es "peligroso" y refuerza el circuito. La exposición gradual permite que la amígdala actualice su base de datos de amenazas. Esto se llama extinción del miedo condicionado — el mismo mecanismo usado en terapia de fobias.',
   },
-  C:{
-    name:'El Controlador Compulsivo',dim:'Necesidad de control',emoji:'⚙️',
-    col:'#0D9488',soft:'#E0FAF4',tc:'#085041',
-    desc:'Controlar cada peso te da seguridad emocional. Tu cerebro aprendió que la certeza total reduce la amenaza de la incertidumbre económica, y que si tienes todo bajo control, nada malo puede pasar. El problema: la vida tiene incertidumbre inevitable, y cada vez que algo sale del plan, tu sistema nervioso colapsa con una ansiedad desproporcionada al evento real.',
-    origen:'Infancia marcada por el caos o la impredecibilidad económica — un padre o madre con gastos erráticos, deudas ocultas, o cambios financieros frecuentes. El control fue la estrategia que el niño/a desarrolló para sobrevivir la incertidumbre. Funcionó entonces. Hoy es excesivo.',
-    str:['Excelente organizador/a y planificador/a financiero/a','Rara vez gastas impulsivamente','Conciencia muy clara de tus números y movimientos','Alta disciplina con compromisos financieros que te haces'],
-    blk:['Dificultad real para disfrutar el dinero sin sentir culpa','Conflictos frecuentes en relaciones por querer controlar todo','La rigidez puede impedirte ver oportunidades','Ansiedad intensa y desproporcionada cuando los planes fallan'],
-    t1:{
-      nombre:'Defusión Cognitiva (Terapia ACT)',
-      origen:'Terapia de Aceptación y Compromiso · Steven Hayes · Universidad de Nevada',
-      tiempo:'15 minutos · aplicar cuando el impulso de control aparece',
-      objetivo:'Crear distancia psicológica del pensamiento de control para que deje de dirigir el comportamiento de forma automática e irreflexiva.',
-      porQue:'En la Terapia ACT, la "fusión cognitiva" ocurre cuando nos identificamos tanto con un pensamiento que lo tratamos como verdad absoluta. "Debo controlar cada gasto" no es un hecho, es un pensamiento. La defusión crea distancia: pasar de "DEBO controlar" a "tengo el pensamiento de que debo controlar" — esa pequeña diferencia cambia completamente la relación con el pensamiento y reduce su poder sobre el comportamiento.',
-      pasos:[
-        'Identifica el pensamiento de control más frecuente que tienes. Escríbelo textualmente, exactamente como aparece en tu mente.',
-        'Antepón la frase: "Tengo el pensamiento de que..." antes de tu creencia. Ejemplo: pasa de "No puedo dejar de revisar las cuentas" a "Tengo el pensamiento de que no puedo dejar de revisar las cuentas." Nota la diferencia.',
-        'Di tu pensamiento original en voz alta con una voz de caricatura, o muy lentamente, o susurrando. Nota cómo el contenido se vuelve menos amenazante — el pensamiento sigue ahí pero ya no te arrastra.',
-        'Di con amabilidad hacia ti mismo/a: "Gracias, mente, por intentar protegerme con este pensamiento. Ya sé que quieres ayudarme. Puedo manejar la imperfección aunque se sienta incómodo."',
-        'Desde este lugar de distancia psicológica, pregúntate: ¿qué ELEGIRÍA hacer aquí si el pensamiento no me controlara? ¿Qué haría alguien que confía en sí mismo/a con el dinero?',
-      ],
-    },
-    t2:{
-      nombre:'Mindfulness Financiero: El Presupuesto Imperfecto',
-      origen:'Terapia Cognitivo-Conductual basada en Mindfulness (MBCT) · Segal, Williams & Teasdale',
-      tiempo:'Práctica semanal progresiva · 3 semanas',
-      objetivo:'Entrenar la tolerancia a la imperfección financiera y reducir la ansiedad ante lo inesperado, construyendo seguridad desde adentro en lugar de desde el control externo.',
-      porQue:'El perfeccionismo financiero es cognitivamente costoso — requiere energía mental constante y produce ansiedad intensa cuando falla inevitablemente. El mindfulness entrena la capacidad de observar sin reaccionar, que es exactamente lo que necesitas cuando algo sale del presupuesto. La seguridad financiera real no viene del control perfecto — viene de saber que puedes adaptarte.',
-      pasos:[
-        'SEMANA 1: Deja UN gasto sin registrar intencionalmente durante la semana. No lo busques ni lo corrijas. Observa qué sientes: ¿urgencia? ¿ansiedad? ¿culpa? Solo observa la emoción sin actuar sobre ella.',
-        'Cuando sientas la urgencia de registrarlo, haz 3 respiraciones lentas y di: "El mundo no se derrumbó. Este gasto existe aunque no esté en mi registro. Puedo manejar la imperfección."',
-        'SEMANA 2: Deja 2 gastos sin registrar durante la semana. Recupéralos el domingo de forma relajada, sin drama ni autocrítica.',
-        'Practica decirle a tu pareja, familiar o persona cercana: "Maneja este gasto tú — yo confío en tu decisión." Observa la incomodidad y déjala estar sin actuar.',
-        'SEMANA 3: Diseña un presupuesto que incluya un 10% de "zona de libertad" — dinero sin categoría fija que puedes usar en lo que aparezca sin necesidad de justificarlo.',
-      ],
-      nota:'El objetivo NO es dejar de registrar ni dejar de planificar. Es aprender que la omisión ocasional no destruye tu seguridad financiera. La incomodidad que sientes al hacer este ejercicio es exactamente el músculo que necesitas desarrollar: tolerancia a la incertidumbre.',
-    },
-    semanas:[
-      {n:'Semana 1',titulo:'Observar sin actuar',texto:'Identifica 3 momentos donde el impulso de control apareció con fuerza. Nómbralos. No los sigas de inmediato. Aplica la defusión ACT antes de actuar.',accion:'Comparte una decisión financiera pequeña con alguien de confianza. Deja que decida sin intervenir.'},
-      {n:'Semana 2',titulo:'Confianza gradual',texto:'Deja 2 gastos sin registrar. Practica la respiración vagal cuando la ansiedad por el control aparezca. Escribe: ¿qué pasó cuando solté el control? ¿Se derrumbó algo?',accion:'Practica decir "está bien" cuando algo no salga exactamente como lo planeaste.'},
-      {n:'Semana 3',titulo:'Seguridad interior',texto:'Diseña tu presupuesto con zona de libertad del 10%. Reflexiona: ¿de dónde vino la necesidad de controlar todo? ¿Qué estabas protegiendo?',accion:'Escribe tu nueva definición de seguridad financiera que NO dependa del control perfecto.'},
-    ],
-    nt:'El control compulsivo es la corteza prefrontal trabajando de más para callar a la amígdala mediante la certeza total. Es un mecanismo de protección que funcionó en la infancia y se volvió excesivo. El mindfulness financiero — revisar con ecuanimidad, no con urgencia — equilibra esta respuesta, reduce el cortisol y entrena al sistema nervioso a tolerar la incertidumbre sin colapsar. La seguridad real viene de adentro.',
+  C:{name:'El Controlador Compulsivo',dim:'Necesidad de control',emoji:'⚙️',col:'#0D9488',soft:'#E0FAF4',tc:'#085041',
+    desc:'Controlar cada peso te da seguridad emocional. Tu cerebro aprendió que la certeza total reduce la amenaza de la incertidumbre económica. El problema: la vida tiene incertidumbre inevitable, y cada vez que algo sale del plan, el sistema nervioso colapsa con ansiedad desproporcionada al evento real.',
+    origen:'Infancia marcada por caos o impredecibilidad económica — padre o madre con gastos erráticos, deudas ocultas o cambios financieros frecuentes. El control fue la estrategia del niño/a para sobrevivir la incertidumbre. Funcionó entonces. Hoy es excesivo.',
+    str:['Excelente organizador/a financiero/a','Rara vez gastas impulsivamente','Conciencia muy clara de tus números','Alta disciplina con compromisos'],
+    blk:['Difícil disfrutar el dinero sin culpa','Conflictos en relaciones por querer controlarlo todo','Rigidez que impide ver oportunidades','Ansiedad intensa cuando los planes fallan'],
+    t1:{nom:'Defusión Cognitiva (Terapia ACT)',orig:'Steven Hayes · Terapia de Aceptación y Compromiso',tiempo:'15 minutos · cuando el impulso de control aparece',
+      obj:'Crear distancia psicológica del pensamiento de control para que deje de dirigir el comportamiento automáticamente.',
+      pq:'La "fusión cognitiva" ocurre cuando nos identificamos tanto con un pensamiento que lo tratamos como verdad absoluta. "Debo controlar cada gasto" no es un hecho — es un pensamiento. La defusión crea distancia: pasar de "DEBO controlar" a "tengo el pensamiento de que debo controlar". Esa diferencia cambia completamente la relación con el pensamiento.',
+      pasos:['Identifica el pensamiento de control más frecuente. Escríbelo textualmente como aparece en tu mente.',
+        'Antepón: "Tengo el pensamiento de que..." antes de tu creencia. Nota la diferencia que crea esa distancia.',
+        'Di tu pensamiento en voz alta con una voz de caricatura o muy lentamente. El contenido se vuelve menos amenazante.',
+        '"Gracias mente por intentar protegerme. Ya sé que quieres ayudarme. Puedo manejar la imperfección."',
+        'Desde esta distancia: ¿qué ELIGES hacer? No lo que el pensamiento dicta, sino lo que realmente valoras.']},
+    t2:{nom:'Mindfulness Financiero: El Presupuesto Imperfecto',orig:'MBCT · Segal, Williams & Teasdale',tiempo:'Práctica semanal progresiva · 3 semanas',
+      obj:'Entrenar la tolerancia a la imperfección financiera y construir seguridad desde adentro, no desde el control externo.',
+      pq:'El perfeccionismo financiero requiere energía mental constante y produce ansiedad intensa cuando falla inevitablemente. El mindfulness entrena observar sin reaccionar. La seguridad financiera real no viene del control perfecto — viene de saber que puedes adaptarte.',
+      pasos:['Semana 1: Deja UN gasto sin registrar intencionalmente durante la semana. No lo busques ni corrijas.',
+        'Observa qué sientes: ¿urgencia? ¿ansiedad? ¿culpa? Solo observa sin actuar sobre la emoción.',
+        '"El mundo no se derrumbó. Puedo manejar la imperfección."',
+        'Semana 2: Deja 2 gastos sin registrar. Recupéralos el domingo relajado/a, sin drama ni autocrítica.',
+        'Semana 3: Diseña un presupuesto con 10% de "zona libre" — dinero sin categoría fija, sin justificación.']},
+    sem:[{n:'Semana 1',t:'Observar sin actuar',d:'Identifica 3 momentos donde el impulso de control apareció. Nómbralos. No los sigas de inmediato. Aplica la defusión ACT antes de actuar.',a:'Comparte 1 decisión financiera pequeña con alguien. Deja que decida sin intervenir.'},
+      {n:'Semana 2',t:'Confianza gradual',d:'Deja 2 gastos sin registrar. Practica respiración vagal cuando la ansiedad por el control aparezca.',a:'Escribe: ¿qué pasó cuando solté el control? ¿Se derrumbó algo realmente?'},
+      {n:'Semana 3',t:'Seguridad interior',d:'Diseña tu presupuesto con zona de libertad del 10%. Reflexiona: ¿qué estabas protegiendo con el control?',a:'Escribe tu nueva definición de seguridad financiera que no dependa del control perfecto.'}],
+    nt:'El control compulsivo es la corteza prefrontal trabajando de más para callar a la amígdala mediante la certeza total. El mindfulness financiero equilibra esta respuesta, reduce el cortisol y entrena al sistema nervioso a tolerar la incertidumbre sin colapsar. La seguridad real viene de adentro.',
   },
-  I:{
-    name:'El Gastador Emocional',dim:'Impulsividad financiera',emoji:'⚡',
-    col:'#F59E0B',soft:'#FFFBEB',tc:'#633806',
-    desc:'El dinero está atado a tus emociones de forma intensa y automática. Gastas cuando estás estresado/a, celebras comprando, te premias con consumo, te consuelas gastando. La dopamina de la compra es real y poderosa — su efecto dura 20 minutos y la deuda que deja dura meses. Con el tiempo, tu cerebro necesita gastar más para sentir lo mismo (tolerancia dopaminérgica).',
-    origen:'Uso del consumo como regulación emocional, aprendido en la infancia o adolescencia. Puede ser que comprar era la forma de recibir cariño, de celebrar, de calmar conflictos en casa, o simplemente de sentir control sobre algo cuando todo lo demás era incierto.',
-    str:['Generoso/a y detallista con quienes amas','Disfrutas el presente con intensidad real','No guardas resentimientos por dinero','Alta energía y motivación cuando te propones algo'],
-    blk:['Ciclo gasto-culpa-gasto difícil de romper solo','Dificultad para mantener el ahorro de forma consistente','Las emociones dirigen las decisiones financieras más importantes','Las deudas crecen especialmente en períodos de estrés o celebración'],
-    t1:{
-      nombre:'Protocolo STOP (Neurociencia del Impulso)',
-      origen:'Mindfulness · Jon Kabat-Zinn — basado en neurociencia cognitiva',
-      tiempo:'5 minutos · aplicar en el momento del impulso',
-      objetivo:'Crear una pausa neurológica entre el estímulo de compra y la acción, activando la corteza prefrontal para que pueda evaluar la decisión antes de ejecutarla.',
-      porQue:'Entre el impulso de comprar y la acción hay una ventana de 1 a 3 segundos donde la corteza prefrontal puede intervenir. El problema es que cuando estamos en piloto automático emocional, esa ventana se cierra antes de que la razón pueda actuar. El protocolo STOP amplía artificialmente esa ventana hasta que la corteza prefrontal pueda tomar el control.',
-      pasos:[
-        'S — STOP: En el momento que sientes el impulso de comprar algo no planificado, di en voz alta o mentalmente: "STOP." Literalmente detén el movimiento físico — cierra la app, aleja el carrito, sal de la tienda.',
-        'T — TOMA UN RESPIRO: Inhala lentamente 4 tiempos, exhala 6 tiempos. Solo una vez es suficiente. Este simple acto activa el nervio vago y desacelera la respuesta dopaminérgica.',
-        'O — OBSERVA: Pregúntate con honestidad: ¿Qué estoy sintiendo AHORA MISMO, antes de comprar esto? ¿Estrés? ¿Tristeza? ¿Aburrimiento? ¿Euforia? ¿Envidia? ¿Quiero este producto o quiero callar una emoción?',
-        'P — PROCEDE CON CONCIENCIA: Ahora sí puedes decidir desde un lugar más racional. Las opciones son: (a) comprar porque sí lo necesitas y lo decidiste conscientemente, (b) aplicar la Regla de las 72 Horas, o (c) atender la emoción de otra forma que no cueste dinero.',
-        'REGLA DE LAS 72 HORAS: Cualquier compra no planificada mayor a lo que defines como "significativo" para ti, espera 72 horas antes de concretarse. El impulso se disuelve. El deseo real persiste.',
-      ],
-    },
-    t2:{
-      nombre:'Diario de Gatillos Emocionales',
-      origen:'Terapia Cognitivo-Conductual (CBT) · Aaron Beck + Terapia Dialéctica Conductual (DBT) · Marsha Linehan',
-      tiempo:'5 minutos por entrada · 21 días',
-      objetivo:'Mapear el ciclo completo emoción-gasto para construir autoconciencia profunda y romper el patrón automático desde su raíz emocional.',
-      porQue:'No puedes cambiar un patrón que no ves con claridad. El diario hace visible el circuito invisible, creando la conciencia necesaria para intervenir antes, no después. Con el tiempo, empiezas a reconocer el gatillo mientras está ocurriendo, no solo cuando ya compraste. Esa conciencia temprana es el cambio más importante.',
-      pasos:[
-        'EMOCIÓN GATILLO: ¿Qué sentías JUSTO ANTES de querer comprar? Sé específico/a. No "estaba mal" — ¿estrés de trabajo, discusión con alguien, soledad, aburrimiento, envidia de algo que viste en redes, celebración, sensación de "merezco esto"?',
-        'SITUACIÓN DETONANTE: ¿Qué ocurrió justo antes del impulso? ¿Una discusión, una notificación, un email, una historia en Instagram, una llamada, un día difícil en el trabajo?',
-        'PENSAMIENTO AUTOMÁTICO: ¿Qué te dijiste a ti mismo/a? ¿"Me lo merezco", "total ya qué", "esto me hará sentir mejor", "es solo por esta vez", "está en oferta"?',
-        'ACCIÓN: ¿Qué compraste? ¿Cuánto gastaste? ¿Fue planificado, impulsivo en tienda, o compra online en la noche?',
-        'CONSECUENCIA EMOCIONAL: ¿Cómo te sentiste 30 minutos después de comprar? ¿Y al día siguiente cuando lo viste en el estado de cuenta? Anota la diferencia entre el "antes" y el "después".',
-        'ALTERNATIVA POSIBLE: ¿Qué podrías haber hecho con esa emoción específica que no hubiera costado dinero? Construye tu propio menú de alternativas.',
-      ],
-    },
-    semanas:[
-      {n:'Semana 1',titulo:'Mapeando el circuito',texto:'Por cada compra no planificada, llena el diario de gatillos emocionales. Identifica tus 3 emociones gatillo principales. Pon la regla de las 72 horas en un lugar visible.',accion:'Instala el protocolo STOP practicándolo en momentos neutros, no solo cuando hay urgencia de comprar.'},
-      {n:'Semana 2',titulo:'Instalando la pausa',texto:'Aplica el protocolo STOP al menos 1 vez al día. Practica 2 alternativas de dopamina sin costo esta semana (ejercicio, llamar a alguien, música, caminar).',accion:'Si comprás impulsivamente, no te juzgues — llena el diario igualmente. La conciencia es el objetivo, no la perfección.'},
-      {n:'Semana 3',titulo:'Construyendo el nuevo circuito',texto:'Diseña tu "menú personal de regulación emocional" — mínimo 5 actividades que te dan bienestar sin gastar. Tenlo siempre disponible para cuando llegue el impulso.',accion:'Compara cuántos impulsos tuviste en semana 1 vs semana 3. Celebra cada impulso que no seguiste — eso es el nuevo circuito formándose.'},
-    ],
-    nt:'Tu núcleo accumbens (centro de recompensa cerebral) se activa con solo VER un producto que deseas, antes de comprarlo. La dopamina sube de anticipación. La compra dispara la dopamina y luego baja abruptamente, dejando un vacío que busca llenarse con la siguiente compra. La pausa de 72 horas activa la corteza prefrontal para regular ese impulso dopaminérgico. Con repetición de 21 días, el nuevo circuito neuronal de pausa se vuelve más fuerte que el automático.',
+  I:{name:'El Gastador Emocional',dim:'Impulsividad financiera',emoji:'⚡',col:'#F59E0B',soft:'#FFFBEB',tc:'#633806',
+    desc:'El dinero está atado a tus emociones de forma intensa y automática. Gastas cuando estás estresado/a, celebras comprando, te premias con consumo. La dopamina de la compra dura 20 minutos. La deuda que deja dura meses. Con el tiempo, el cerebro necesita gastar más para sentir lo mismo (tolerancia dopaminérgica).',
+    origen:'Uso del consumo como regulación emocional, aprendido en infancia o adolescencia. Comprar era la forma de recibir cariño, celebrar, calmar conflictos, o sentir control cuando todo lo demás era incierto.',
+    str:['Generoso/a y detallista con quienes amas','Disfrutas el presente con intensidad','No guardas resentimientos por dinero','Alta energía y motivación cuando te propones algo'],
+    blk:['Ciclo gasto-culpa-gasto difícil de romper','Dificultad para mantener el ahorro consistente','Las emociones dirigen las decisiones financieras','Las deudas crecen especialmente en períodos difíciles'],
+    t1:{nom:'Protocolo STOP (Neurociencia del Impulso)',orig:'Jon Kabat-Zinn · Mindfulness',tiempo:'5 minutos · aplicar en el momento del impulso',
+      obj:'Crear una pausa neurológica entre el estímulo de compra y la acción, activando la corteza prefrontal para evaluar antes de actuar.',
+      pq:'Entre el impulso y la acción hay 1-3 segundos donde la corteza prefrontal puede intervenir. En piloto automático emocional, esa ventana se cierra. El protocolo STOP amplía artificialmente esa ventana hasta que la razón pueda tomar el control de la decisión.',
+      pasos:['S — STOP: Al sentir el impulso, di "STOP" en voz alta. Detén el movimiento físico. Cierra la app, aleja el carrito, sal de la tienda.',
+        'T — TOMA UN RESPIRO: Inhala 4 tiempos, exhala 6. Una sola vez. Este acto activa el nervio vago y desacelera la respuesta dopaminérgica.',
+        'O — OBSERVA: ¿Qué siento AHORA MISMO antes de comprar? ¿Estrés? ¿Tristeza? ¿Aburrimiento? ¿Quiero el producto o quiero callar una emoción?',
+        'P — PROCEDE CON CONCIENCIA: ¿Compras conscientemente, aplicas la Regla de las 72 Horas, o atiendes la emoción de otra forma?',
+        'REGLA DE LAS 72 HORAS: Cualquier compra no planificada espera 3 días antes de concretarse. El impulso se disuelve. El deseo real persiste.']},
+    t2:{nom:'Diario de Gatillos Emocionales (CBT + DBT)',orig:'Aaron Beck + Marsha Linehan',tiempo:'5 minutos por entrada · 21 días',
+      obj:'Mapear el ciclo completo emoción-gasto para construir autoconciencia profunda y romper el patrón desde su raíz emocional.',
+      pq:'No puedes cambiar un patrón que no ves con claridad. El diario hace visible el circuito invisible. Con el tiempo, empiezas a reconocer el gatillo mientras ocurre — no solo cuando ya compraste. Esa conciencia temprana es el cambio más importante.',
+      pasos:['EMOCIÓN GATILLO: ¿Qué sentías justo antes del impulso? Sé específico/a: estrés de trabajo, discusión, soledad, aburrimiento, envidia de algo en redes, euforia.',
+        'SITUACIÓN DETONANTE: ¿Qué ocurrió justo antes? ¿Una notificación, historia en Instagram, llamada, día difícil?',
+        'PENSAMIENTO AUTOMÁTICO: ¿Qué te dijiste? "Me lo merezco", "total ya qué", "está en oferta", "esto me hará sentir mejor".',
+        'ACCIÓN: ¿Qué compraste? ¿Cuánto? ¿Fue planificado, en tienda, o compra online en la noche?',
+        'CONSECUENCIA: ¿Cómo te sentiste 30 minutos después? ¿Y al día siguiente al verlo en el estado de cuenta?',
+        'ALTERNATIVA POSIBLE: ¿Qué podrías haber hecho con esa emoción específica que no costara dinero?']},
+    sem:[{n:'Semana 1',t:'Mapeando el circuito',d:'Por cada compra no planificada, llena el diario de gatillos. Identifica tus 3 emociones gatillo principales.',a:'Pon la Regla de las 72 Horas visible: fondo de pantalla, espejo, billetera.'},
+      {n:'Semana 2',t:'Instalando la pausa',d:'Aplica el protocolo STOP al menos 1 vez al día. Practica 2 alternativas de dopamina sin costo esta semana.',a:'Si comprás impulsivamente, no te juzgues — llena el diario igualmente.'},
+      {n:'Semana 3',t:'Nuevo circuito',d:'Diseña tu "menú de regulación emocional": 5 actividades que te dan bienestar sin gastar.',a:'Compara impulsos semana 1 vs semana 3. Celebra cada impulso que no seguiste.'}],
+    nt:'Tu núcleo accumbens se activa con solo VER un producto que deseas. La dopamina sube de anticipación. La pausa de 72 horas activa la corteza prefrontal para regular ese impulso dopaminérgico. Con repetición de 21 días, el nuevo circuito neuronal de pausa se vuelve más fuerte que el automático.',
   },
-  ID:{
-    name:'El Desconectado Financiero',dim:'Identidad financiera negativa',emoji:'🔓',
-    col:'#BE185D',soft:'#FDF2F8',tc:'#72243E',
-    desc:'En el fondo no te ves como alguien que puede ser bueno/a con el dinero. Esta identidad — aprendida en la infancia — hace que el cerebro sabotee activamente el éxito financiero para mantener coherencia con la historia que cree sobre sí mismo. No es autosabotaje consciente — es el cerebro cumpliendo fielmente su propia narrativa de identidad.',
-    origen:'Mensajes directos o indirectos en la infancia de que el dinero "no era para tu familia", que tú "no eras bueno con los números", o que "la gente como nosotros no llega a tener eso". Puede venir de fracasos financieros familiares que te marcaron, de crecer viendo que el dinero siempre se iba, o de mensajes explícitos sobre no merecer prosperidad.',
-    str:['Capacidad profunda de introspección y autoconocimiento','Alta empatía genuina con quienes tienen dificultades','Autenticidad — no aparentas lo que no tienes','Potencial enorme cuando reconectas con tu valor real'],
-    blk:['Autosabotaje financiero automático e inconsciente','Dificultad real para cobrar lo que verdaderamente vales','Rechazas oportunidades diciéndote que "no son para ti"','El dinero confirma una historia que ya crees sobre ti mismo/a'],
-    t1:{
-      nombre:'Re-imprinting (Cambio de Historia de Identidad)',
-      origen:'Programación Neurolingüística · Robert Dilts',
-      tiempo:'30-40 minutos · 1 vez por semana',
-      objetivo:'Identificar el momento formativo donde se instaló la identidad financiera negativa y reescribirlo con los recursos del adulto que eres hoy, liberando la carga emocional que mantiene el patrón activo.',
-      porQue:'El re-imprinting trabaja sobre las "improntas" — experiencias tempranas de alta carga emocional que instalaron creencias profundas sobre quiénes somos. A diferencia del reencuadre que trabaja sobre pensamientos actuales, el re-imprinting trabaja sobre el momento de origen mismo, donde la creencia se instaló por primera vez. Cambiar ese momento en la mente cambia la raíz del patrón.',
-      pasos:[
-        'Cierra los ojos. Respira profundamente 4 veces. Recuerda el momento más temprano de tu vida donde aprendiste que "el dinero no era para ti" o que eras "malo/a con el dinero". ¿Cuántos años tenías? ¿Dónde estabas?',
-        'Observa esa escena desde afuera, como si fueras un observador desde el techo de la habitación — no entres en el cuerpo del niño/a todavía. Solo observa: ¿quién está en la escena? ¿Qué se dice o se hace? ¿Qué aprende el niño/a sobre sí mismo/a y el dinero?',
-        'Pregúntate: ¿Qué creencia sobre mí y el dinero instaló ese momento? ¿Qué decidí en ese instante sobre quién soy en relación al dinero? Escríbela con total honestidad.',
-        'Ahora imagina que el adulto que eres hoy — con todos tus recursos, tu experiencia y tu sabiduría — entra en esa escena. ¿Qué le dirías al niño/a que eras? ¿Qué le darías que no tuvo en ese momento? ¿Qué necesitaba escuchar?',
-        'Observa cómo el niño/a recibe eso. Deja que la escena cambie. Respira. Cuando estés listo/a, abre los ojos y escribe la nueva creencia que nació de esta escena transformada.',
-      ],
-    },
-    t2:{
-      nombre:'Protocolo de Identidad Emergente (Neuroplasticidad)',
-      origen:'Principio de Hebb · Neurociencia — "Neuronas que se activan juntas, se conectan juntas"',
-      tiempo:'2 minutos cada mañana · 21 días consecutivos sin excepciones',
-      objetivo:'Crear y consolidar una nueva identidad financiera a través de la repetición neuronal consciente, construyendo la evidencia que el cerebro necesita para adoptar la nueva historia como real.',
-      porQue:'La identidad es una red neuronal — un conjunto de conexiones que se activan juntas de forma automática. Para cambiar la identidad, necesitas crear nuevas conexiones que con el tiempo compitan con las antiguas. La regla de Hebb dice: neuronas que se activan juntas, se conectan juntas. La repetición diaria y consciente es el mecanismo exacto de la neuroplasticidad.',
-      pasos:[
-        'Escribe 3 afirmaciones de identidad financiera en tiempo presente y primera persona. Deben ser creíbles (no perfectas ni lejanas). Ejemplos válidos: "Soy alguien que aprende sobre dinero." "Soy alguien que registra sus gastos." "Soy alguien que cuida su dinero conscientemente."',
-        'Cada mañana, durante 2 minutos, párate frente al espejo y lee estas 3 afirmaciones en voz alta. Mírate a los ojos. La voz en voz alta activa más conexiones neuronales que leer en silencio.',
-        'Al principio se sentirá completamente falso. Eso es normal y esperado — significa que estás reprogramando una creencia antigua que se siente "verdadera". Cuando la mente diga "eso no es verdad", responde: "Todavía no del todo, pero lo estoy construyendo activamente."',
-        'Cada vez que actúes en línea con la nueva identidad — registras un gasto, haces un ahorro, tomas una decisión financiera consciente — di en voz alta: "Eso hice. Eso soy." Estás construyendo evidencia de la nueva identidad.',
-        'Al día 21: haz una lista de todas las acciones financieras conscientes que tomaste durante estos 21 días. Esa lista es la evidencia real de que la nueva identidad existe. El cerebro la adopta como verdadera cuando hay evidencia.',
-      ],
-    },
-    semanas:[
-      {n:'Semana 1',titulo:'Identificando la historia antigua',texto:'Realiza el re-imprinting al menos 1 vez esta semana. Escribe tu historia financiera actual como si fuera un cuento: "Yo y el dinero somos..." Identifica 3 momentos donde SÍ actuaste bien con el dinero.',accion:'Empieza las afirmaciones frente al espejo. Sin excepción, aunque se sienta raro o falso.'},
-      {n:'Semana 2',titulo:'Construyendo evidencia',texto:'Cada día haz 1 acción financiera pequeña y consciente. Después dite: "Eso hice. Eso soy." Comparte tu nueva afirmación con alguien de confianza.',accion:'Cuando aparezca el pensamiento de "yo no soy bueno/a con el dinero", aplica la defusión: "Tengo el pensamiento de que..."'},
-      {n:'Semana 3',titulo:'Consolidando la nueva narrativa',texto:'Escribe el nuevo cuento: "¿Quién estoy llegando a ser con el dinero?" Busca activamente evidencia de la nueva identidad en tus acciones de estas 3 semanas.',accion:'Define 1 comportamiento que la persona de tu nueva identidad haría de forma regular. Empiézalo hoy.'},
-    ],
-    nt:'La identidad financiera negativa vive en el sistema límbico como una respuesta condicionada automática. Cada vez que te dices "soy malo con el dinero", refuerzas las conexiones neuronales que hacen eso verdad conductualmente. La neuroplasticidad permite reescribir esas conexiones, pero requiere repetición consciente de mínimo 21 días continuos. La identidad no cambia en un momento de inspiración — cambia en la consistencia de los actos pequeños diarios.',
+  ID:{name:'El Desconectado Financiero',dim:'Identidad financiera negativa',emoji:'🔓',col:'#BE185D',soft:'#FDF2F8',tc:'#72243E',
+    desc:'En el fondo no te ves como alguien que puede ser bueno/a con el dinero. Esta identidad heredada hace que el cerebro sabotee activamente el éxito financiero para mantener coherencia con la historia que cree sobre sí mismo. No es autosabotaje consciente — es el cerebro cumpliendo su propia narrativa.',
+    origen:'Mensajes directos o indirectos en la infancia de que el dinero "no era para tu familia", que "no eras bueno con los números", o fracasos financieros familiares que te marcaron profundamente.',
+    str:['Capacidad profunda de introspección','Alta empatía con quienes tienen dificultades','Autenticidad — no aparentas lo que no tienes','Potencial enorme cuando reconectas con tu valor'],
+    blk:['Autosabotaje financiero automático e inconsciente','Difícil cobrar lo que verdaderamente vales','Rechazas oportunidades que "no son para ti"','El dinero confirma una historia que ya crees sobre ti'],
+    t1:{nom:'Re-imprinting (Cambio de Historia de Identidad)',orig:'Robert Dilts · Programación Neurolingüística',tiempo:'30-40 minutos · 1 vez por semana',
+      obj:'Identificar el momento formativo donde se instaló la identidad financiera negativa y reescribirlo con los recursos del adulto que eres hoy.',
+      pq:'El re-imprinting trabaja sobre las "improntas" — experiencias tempranas de alta carga emocional que instalaron creencias sobre quiénes somos. A diferencia del reencuadre que trabaja sobre pensamientos actuales, el re-imprinting trabaja sobre el momento de origen mismo. Cambiar ese momento en la mente cambia la raíz del patrón.',
+      pasos:['Cierra los ojos. Respira profundo 4 veces. Recuerda el primer momento donde aprendiste que "el dinero no era para ti". ¿Cuántos años tenías? ¿Dónde estabas?',
+        'Observa esa escena desde afuera — como observador desde el techo. No entres en el cuerpo del niño/a todavía. ¿Quién está? ¿Qué se dice o hace?',
+        '¿Qué creencia sobre ti y el dinero instaló ese momento? ¿Qué decidiste en ese instante sobre quién eres en relación al dinero?',
+        'Imagina que el adulto que eres hoy entra en esa escena con todos tus recursos actuales. ¿Qué le dirías al niño/a? ¿Qué necesitaba escuchar?',
+        'Observa cómo el niño/a recibe eso. Deja que la escena se transforme. Abre los ojos y escribe la nueva creencia que nació de esta escena.']},
+    t2:{nom:'Protocolo de Identidad Emergente (Neuroplasticidad)',orig:'Principio de Hebb · Neurociencia',tiempo:'2 minutos cada mañana · 21 días sin excepciones',
+      obj:'Crear y consolidar una nueva identidad financiera a través de la repetición neuronal consciente.',
+      pq:'La identidad es una red neuronal — conexiones que se activan juntas automáticamente. Para cambiarla, necesitas crear nuevas conexiones que compitan con las antiguas. La regla de Hebb: neuronas que se activan juntas, se conectan juntas. La repetición diaria es el mecanismo exacto de la neuroplasticidad.',
+      pasos:['Escribe 3 afirmaciones de identidad en presente y primera persona. Creíbles, no perfectas: "Soy alguien que aprende sobre dinero." "Soy alguien que cuida su dinero conscientemente."',
+        'Cada mañana, frente al espejo, lee las 3 afirmaciones en voz alta durante 2 minutos. Mírate a los ojos.',
+        'Al principio se sentirá completamente falso. Eso es normal — es la creencia antigua resistiéndose. Cuando la mente diga "eso no es verdad", responde: "Todavía no del todo, pero lo estoy construyendo."',
+        'Cada vez que actúes en línea con la nueva identidad, di: "Eso hice. Eso soy." Construyes evidencia real de la nueva identidad.',
+        'Al día 21: lista todas las acciones financieras conscientes que tomaste. Esa lista es la evidencia real de que la nueva identidad existe.']},
+    sem:[{n:'Semana 1',t:'Identificando la historia',d:'Realiza el re-imprinting al menos 1 vez. Escribe tu historia financiera actual como cuento. Identifica 3 momentos donde SÍ actuaste bien con el dinero.',a:'Empieza las afirmaciones frente al espejo. Sin excepción aunque se sienta raro.'},
+      {n:'Semana 2',t:'Construyendo evidencia',d:'Cada día haz 1 acción financiera pequeña y consciente. Después dite: "Eso hice. Eso soy." Comparte tu afirmación con alguien de confianza.',a:'Cuando aparezca "no soy bueno/a con el dinero", aplica defusión: "Tengo el pensamiento de que..."'},
+      {n:'Semana 3',t:'Nueva narrativa',d:'Escribe el nuevo cuento: "¿Quién estoy llegando a ser con el dinero?" Busca evidencia de la nueva identidad en tus acciones de estas semanas.',a:'Define 1 comportamiento que la persona de tu nueva identidad haría regularmente. Empiézalo hoy.'}],
+    nt:'La identidad financiera negativa vive en el sistema límbico como respuesta condicionada. "Soy malo con el dinero" refuerza conexiones neuronales que hacen eso conductualmente verdad. La neuroplasticidad permite reescribir esas conexiones — requiere repetición consciente de mínimo 21 días continuos sin excepción.',
   },
 };
 
-let cur=0,ans=Array(QS.length).fill(-1),userName='',userEmail='',domProfile='',pctsDom={};
+let cur=0,ans=Array(QS.length).fill(-1),uName='',uEmail='';
 
 function showIntro(){document.getElementById('intro-card').style.display='block';document.getElementById('data-card').style.display='none';}
 function showData(){document.getElementById('intro-card').style.display='none';document.getElementById('data-card').style.display='block';}
@@ -496,7 +349,7 @@ function startTest(){
   const e=document.getElementById('inp-email').value.trim();
   if(!n){alert('Por favor escribe tu nombre.');return;}
   if(!e||!e.includes('@')){alert('Por favor escribe un correo válido.');return;}
-  userName=n;userEmail=e;
+  uName=n;uEmail=e;
   document.getElementById('data-card').style.display='none';
   document.getElementById('test-card').style.display='block';
   cur=0;ans=Array(QS.length).fill(-1);render();
@@ -511,9 +364,9 @@ function render(){
   document.getElementById('counter').textContent=(cur+1)+' / '+QS.length;
   document.getElementById('btn-back').disabled=cur===0;
   const isLast=cur===QS.length-1;
-  const btn=document.getElementById('btn-next');
-  btn.textContent=isLast?'Ver mi perfil →':'Siguiente →';
-  btn.disabled=ans[cur]===-1;
+  const nb=document.getElementById('btn-next');
+  nb.textContent=isLast?'Ver mi perfil →':'Siguiente →';
+  nb.disabled=ans[cur]===-1;
   const od=document.getElementById('options');od.innerHTML='';
   q.opts.forEach((o,i)=>{
     const b=document.createElement('button');
@@ -533,6 +386,7 @@ function calcScores(){
   QS.forEach((q,qi)=>{const ai=ans[qi];if(ai>=0){Object.keys(q.opts[ai].s).forEach(k=>{t[k]=(t[k]||0)+q.opts[ai].s[k];});}});
   return t;
 }
+
 function showResult(){
   document.getElementById('test-card').style.display='none';
   const sc=calcScores();
@@ -540,192 +394,279 @@ function showResult(){
   const pcts={};DIMS.forEach(d=>pcts[d]=Math.round((sc[d]/total)*100));
   const sorted=[...DIMS].sort((a,b)=>sc[b]-sc[a]);
   const dom=sorted[0],sec=sorted[1];
-  domProfile=dom;pctsDom=pcts;
-  const prof=PROFILES[dom],secProf=PROFILES[sec];
+  const prof=P[dom],secP=P[sec];
   const bars=DIMS.sort((a,b)=>sc[b]-sc[a]).map(d=>`
     <div class="bar-row">
-      <div class="bar-meta"><span class="bar-name">${DFULL[d]}</span><span class="bar-val">${pcts[d]}%</span></div>
-      <div class="bar-track"><div class="bar-fill" style="width:${pcts[d]}%;background:${DCOLORS[d]}"></div></div>
+      <div class="bar-meta"><span class="bar-name">${DNAMES[d]}</span><span class="bar-val" style="color:${DCOLS[d]}">${pcts[d]}%</span></div>
+      <div class="bar-track"><div class="bar-fill" style="width:${pcts[d]}%;background:${DCOLS[d]}"></div></div>
     </div>`).join('');
   const mkSteps=(steps,col)=>steps.map((s,i)=>`
     <div class="step-item">
       <div class="step-num" style="background:${col}">${i+1}</div>
       <span>${s}</span>
     </div>`).join('');
-  const mkWeeks=(weeks,prof)=>weeks.map(w=>`
+  const mkSem=(sem,prof)=>sem.map(s=>`
     <div class="week-card">
-      <div class="week-num" style="color:${prof.col}">${w.n}</div>
-      <div style="font-size:.78rem;font-weight:600;color:${prof.tc};margin-bottom:.3rem">${w.titulo}</div>
-      <div class="week-text">${w.texto}</div>
-      <div class="week-action" style="background:${prof.soft};color:${prof.tc};margin-top:.5rem">→ ${w.accion}</div>
+      <div class="week-num" style="color:${prof.col}">${s.n}</div>
+      <div class="week-tit" style="color:${prof.tc}">${s.t}</div>
+      <div class="week-txt">${s.d}</div>
+      <div class="week-ac" style="background:${prof.soft};color:${prof.tc}">→ ${s.a}</div>
     </div>`).join('');
-  const rc=document.getElementById('result-card');
-  rc.style.display='block';
+  const rc=document.getElementById('result-card');rc.style.display='block';
   rc.innerHTML=`
-    <div style="font-size:.88rem;color:var(--gray);margin-bottom:.75rem">
-      Hola, <strong>${userName}</strong> — este es tu perfil psico-financiero:
+    <div style="font-size:.88rem;color:var(--gray);margin-bottom:.75rem">Hola <strong>${uName}</strong>, este es tu perfil psico-financiero:</div>
+    <div class="res-header" style="background:${prof.soft};border:2px solid ${prof.col}40">
+      <div class="res-eye" style="color:${prof.col}">${prof.emoji} ${prof.dim}</div>
+      <div class="res-name" style="color:${prof.tc}">${prof.name}</div>
+      <div class="res-desc" style="color:${prof.tc}">${prof.desc}</div>
     </div>
-    <div class="result-header" style="background:${prof.soft};border:2px solid ${prof.col}40">
-      <div class="result-eyebrow" style="color:${prof.col}">${prof.emoji} ${prof.dim}</div>
-      <div class="result-name" style="color:${prof.tc}">${prof.name}</div>
-      <div class="result-desc" style="color:${prof.tc}">${prof.desc}</div>
-    </div>
-    <div style="background:var(--light);border-radius:10px;padding:.85rem 1rem;margin-bottom:1.25rem;border-left:3px solid ${prof.col}">
+    <div style="background:var(--light);border-left:3px solid ${prof.col};border-radius:0 8px 8px 0;padding:.85rem 1rem;margin-bottom:1rem">
       <div style="font-size:.72rem;font-weight:700;color:${prof.col};text-transform:uppercase;letter-spacing:.04em;margin-bottom:.35rem">Origen de este patrón</div>
       <div style="font-size:.875rem;color:var(--dark);line-height:1.65">${prof.origen}</div>
     </div>
-    <div class="section-title">Tus 5 dimensiones psicológicas</div>
+    <div class="stitle">Tus 5 dimensiones psicológicas</div>
     ${bars}
     <div class="two-col">
-      <div class="mini-card">
-        <div class="mini-title">✅ Tus fortalezas</div>
-        <div class="pill-list">${prof.str.map(s=>`<span class="pill g">${s}</span>`).join('')}</div>
-      </div>
-      <div class="mini-card">
-        <div class="mini-title">⚠️ Tus bloqueos</div>
-        <div class="pill-list">${prof.blk.map(b=>`<span class="pill b">${b}</span>`).join('')}</div>
-      </div>
+      <div class="mini-card"><div class="mini-title">✅ Fortalezas</div>${prof.str.map(s=>`<span class="pill g">${s}</span>`).join('')}</div>
+      <div class="mini-card"><div class="mini-title">⚠️ Bloqueos</div>${prof.blk.map(b=>`<span class="pill b">${b}</span>`).join('')}</div>
     </div>
-    <div class="section-title">Tu protocolo de intervención personalizado</div>
+    <div class="stitle">Tu protocolo de intervención personalizado</div>
     <div class="tech-block">
       <div class="tech-head" style="background:${prof.col}">
-        <div class="tech-head-title">${prof.t1.nombre}</div>
-        <div class="tech-head-sub">${prof.t1.origen} · ${prof.t1.tiempo}</div>
+        <div class="tech-head-title">${prof.t1.nom}</div>
+        <div class="tech-head-sub">${prof.t1.orig} · ${prof.t1.tiempo}</div>
       </div>
       <div class="tech-body">
-        <div class="tech-section">
-          <div class="tech-section-title">Objetivo</div>
-          <div class="tech-intro">${prof.t1.objetivo}</div>
-        </div>
-        <div class="tech-section">
-          <div class="tech-section-title">Por qué funciona</div>
-          <div class="tech-intro">${prof.t1.porQue}</div>
-        </div>
-        <div class="tech-section">
-          <div class="tech-section-title">Pasos del ejercicio</div>
-          ${mkSteps(prof.t1.pasos,prof.col)}
-        </div>
+        <div style="font-size:.72rem;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.04em;margin-bottom:.35rem">Objetivo</div>
+        <div class="tech-box">${prof.t1.obj}</div>
+        <div style="font-size:.72rem;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.04em;margin:.65rem 0 .35rem">Por qué funciona</div>
+        <div class="tech-box">${prof.t1.pq}</div>
+        <div style="font-size:.72rem;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.04em;margin:.65rem 0 .5rem">Pasos del ejercicio</div>
+        ${mkSteps(prof.t1.pasos,prof.col)}
       </div>
     </div>
     <div class="tech-block">
       <div class="tech-head" style="background:#0D9488">
-        <div class="tech-head-title">${prof.t2.nombre}</div>
-        <div class="tech-head-sub">${prof.t2.origen} · ${prof.t2.tiempo}</div>
+        <div class="tech-head-title">${prof.t2.nom}</div>
+        <div class="tech-head-sub">${prof.t2.orig} · ${prof.t2.tiempo}</div>
       </div>
       <div class="tech-body">
-        <div class="tech-section">
-          <div class="tech-section-title">Objetivo</div>
-          <div class="tech-intro">${prof.t2.objetivo}</div>
-        </div>
-        <div class="tech-section">
-          <div class="tech-section-title">Por qué funciona</div>
-          <div class="tech-intro">${prof.t2.porQue}</div>
-        </div>
-        <div class="tech-section">
-          <div class="tech-section-title">Pasos del ejercicio</div>
-          ${mkSteps(prof.t2.pasos,'#0D9488')}
-          ${prof.t2.nota?`<div class="tech-intro" style="margin-top:.75rem;border-left-color:#0D9488"><strong>Nota importante:</strong> ${prof.t2.nota}</div>`:''}
-        </div>
+        <div style="font-size:.72rem;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.04em;margin-bottom:.35rem">Objetivo</div>
+        <div class="tech-box">${prof.t2.obj}</div>
+        <div style="font-size:.72rem;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.04em;margin:.65rem 0 .35rem">Por qué funciona</div>
+        <div class="tech-box">${prof.t2.pq}</div>
+        <div style="font-size:.72rem;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.04em;margin:.65rem 0 .5rem">Pasos del ejercicio</div>
+        ${mkSteps(prof.t2.pasos,'#0D9488')}
       </div>
     </div>
-    <div class="section-title">Tu rutina de intervención — 21 días</div>
-    <div class="week-grid">${mkWeeks(prof.semanas,prof)}</div>
-    <div class="neuro-nota">
-      <strong>🧠 Base neurocientífica:</strong> ${prof.nt}
-    </div>
-    <div class="sec-profile" style="margin-top:1.25rem">
-      <div style="font-size:.7rem;font-weight:600;color:${secProf.col};text-transform:uppercase;letter-spacing:.05em;margin-bottom:.25rem">Perfil secundario — también presente en ti</div>
-      <div style="font-size:1rem;font-weight:700;color:${secProf.tc};margin-bottom:.4rem">${secProf.emoji} ${secProf.name}</div>
-      <div style="font-size:.875rem;color:var(--gray);line-height:1.65;margin-bottom:.6rem">${secProf.desc}</div>
-      <div style="font-size:.8rem;font-weight:600;color:${secProf.tc};margin-bottom:.4rem">Sus técnicas clave:</div>
-      <div style="font-size:.825rem;color:var(--gray)">
-        → <strong>${secProf.t1.nombre}</strong><br>
-        → <strong>${secProf.t2.nombre}</strong>
-      </div>
+    <div class="stitle">Tu rutina de intervención — 21 días</div>
+    <div class="week-grid">${mkSem(prof.sem,prof)}</div>
+    <div class="neuro-box"><strong>🧠 Base neurocientífica:</strong> ${prof.nt}</div>
+    <div class="sec-prof">
+      <div style="font-size:.7rem;font-weight:600;color:${secP.col};text-transform:uppercase;letter-spacing:.05em;margin-bottom:.25rem">Perfil secundario — también presente en ti</div>
+      <div style="font-size:1rem;font-weight:700;color:${secP.tc};margin-bottom:.4rem">${secP.emoji} ${secP.name}</div>
+      <div style="font-size:.875rem;color:var(--gray);line-height:1.65;margin-bottom:.5rem">${secP.desc}</div>
+      <div style="font-size:.8rem;color:var(--gray)">→ Técnica 1: <strong>${secP.t1.nom}</strong><br>→ Técnica 2: <strong>${secP.t2.nom}</strong></div>
     </div>
     <div class="action-row">
-      <button class="btn-share-img" onclick="generarTarjeta()">📸 Guardar y compartir mi resultado</button>
-      <button class="btn-retry" onclick="retryTest()">↺ Repetir test</button>
+      <button class="btn-pdf" id="btn-pdf" onclick="generarPDF()">📄 Descargar mi resultado completo (PDF)</button>
+      <button class="btn-retry" onclick="retryTest()">↺ Repetir</button>
     </div>
     <div class="cta-box">
       <strong>¡Lleva este perfil al Módulo 1!</strong><br>
       Será tu punto de partida para la transformación financiera de 90 días.<br>
       <em style="color:var(--gray)">Finanzas Personales Sin Complicaciones · Lisbeth Ochoa</em>
-    </div>
-  `;
+    </div>`;
   rc.scrollIntoView({behavior:'smooth'});
-  construirTarjeta(prof,pcts,dom,sec);
+  window._resultData={dom,sec,pcts,prof,secP};
 }
 
-function construirTarjeta(prof,pcts,dom,sec){
-  const sc=document.getElementById('share-card');
-  const secProf=PROFILES[sec];
-  const initials=userName.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
-  const barRows=DIMS.sort((a,b)=>pcts[b]-pcts[a]).map(d=>`
-    <div class="sc-bar-row">
-      <div class="sc-bar-label">${DNAMES[d]}</div>
-      <div class="sc-bar-track"><div class="sc-bar-fill" style="width:${pcts[d]}%;background:${DCOLORS[d]}"></div></div>
-      <div class="sc-bar-val">${pcts[d]}%</div>
-    </div>`).join('');
-  sc.style.display='block';
-  sc.innerHTML=`
-    <div class="sc-gold-bar"></div>
-    <div class="sc-header">
-      <div class="sc-program">Finanzas Personales Sin Complicaciones · Lisbeth Ochoa</div>
-      <div class="sc-test">Test Psico-Financiero · Resultado Personal</div>
-      <div class="sc-avatar" style="color:${prof.col};border-color:${prof.col}">${initials}</div>
-      <div class="sc-name">${userName}</div>
-    </div>
-    <div style="background:${prof.col};padding:.1rem 1.5rem .9rem;text-align:center">
-      <div class="sc-profile-label" style="color:rgba(255,255,255,.75)">Mi perfil dominante</div>
-      <div class="sc-profile-name" style="color:#fff">${prof.emoji} ${prof.name}</div>
-      <div class="sc-profile-dim" style="color:rgba(255,255,255,.8)">${prof.dim}</div>
-    </div>
-    <div style="padding:.9rem 0 .2rem">
-      <div class="sc-bars">${barRows}</div>
-      <div class="sc-desc">"${prof.desc.substring(0,140)}..."</div>
-      <div class="sc-action">Perfil secundario: ${secProf.emoji} ${secProf.name}</div>
-    </div>
-    <div class="sc-gold-bar"></div>
-    <div class="sc-footer">
-      <div><div class="sc-footer-name">Lisbeth Ochoa</div><div class="sc-footer-sub">Finanzas Personales Sin Complicaciones</div></div>
-      <div style="font-size:.65rem;color:#94A3B8;text-align:right">Programa de<br>transformación · 90 días</div>
-    </div>
-  `;
-}
+function generarPDF(){
+  const btn=document.getElementById('btn-pdf');
+  btn.textContent='⏳ Generando PDF...';btn.disabled=true;
+  const {dom,sec,pcts,prof,secP}=window._resultData;
+  const {jsPDF}=window.jspdf;
+  const doc=new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});
+  const W=210,M=15,CW=W-M*2;
+  let y=0;
 
-function generarTarjeta(){
-  const sc=document.getElementById('share-card');
-  if(!sc||sc.style.display==='none'){alert('Completa el test primero.');return;}
-  const btn=document.querySelector('.btn-share-img');
-  btn.textContent='⏳ Generando imagen...';btn.disabled=true;
-  setTimeout(()=>{
-    html2canvas(sc,{scale:2.5,useCORS:true,backgroundColor:null,logging:false}).then(canvas=>{
-      canvas.toBlob(blob=>{
-        if(navigator.share&&navigator.canShare&&navigator.canShare({files:[new File([blob],'mi-perfil-financiero.png',{type:'image/png'})]})){
-          navigator.share({
-            title:'Mi perfil psico-financiero · Lisbeth Ochoa',
-            text:'Hice el test de Finanzas Personales Sin Complicaciones con Lisbeth Ochoa. ¡Descubre tu perfil!',
-            files:[new File([blob],'mi-perfil-financiero.png',{type:'image/png'})]
-          }).catch(()=>descargarImagen(canvas));
-        } else {
-          descargarImagen(canvas);
-        }
-        btn.textContent='📸 Guardar y compartir mi resultado';btn.disabled=false;
-      },'image/png');
-    }).catch(()=>{
-      btn.textContent='📸 Guardar y compartir mi resultado';btn.disabled=false;
-      alert('No se pudo generar la imagen. Toma una captura de pantalla de tu resultado.');
+  function hexToRGB(hex){
+    const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
+    return[r,g,b];
+  }
+  function setColor(hex){const[r,g,b]=hexToRGB(hex);doc.setTextColor(r,g,b);}
+  function setFill(hex){const[r,g,b]=hexToRGB(hex);doc.setFillColor(r,g,b);}
+  function setDraw(hex){const[r,g,b]=hexToRGB(hex);doc.setDrawColor(r,g,b);}
+  function txt(text,x,yw,size,color,style='normal',maxW){
+    doc.setFontSize(size);doc.setFont('helvetica',style);setColor(color);
+    if(maxW){doc.text(text,x,yw,{maxWidth:maxW});}else{doc.text(text,x,yw);}
+  }
+  function rect(x,yw,w,h,color){setFill(color);doc.rect(x,yw,w,h,'F');}
+  function newPage(){doc.addPage();y=20;}
+  function checkY(needed){if(y+needed>280){newPage();}}
+
+  // PORTADA
+  rect(0,0,W,60,'#1B2B5E');
+  txt('FINANZAS PERSONALES SIN COMPLICACIONES',W/2,18,8,'#A5B4FC','normal');
+  doc.setFontSize(8);doc.setFont('helvetica','normal');
+  doc.text('con Lisbeth Ochoa',W/2,24,{align:'center'});
+  txt('TEST PSICO-FINANCIERO',W/2,36,20,'#FFFFFF','bold');
+  txt('Resultado Personal Completo',W/2,46,11,'#F59E0B','italic');
+  txt(uName,W/2,54,9,'#94A3B8','normal');
+  y=72;
+
+  // Perfil dominante
+  const[pr,pg,pb]=hexToRGB(prof.soft);
+  doc.setFillColor(pr,pg,pb);doc.rect(M,y,CW,28,'F');
+  const[cr,cg,cb]=hexToRGB(prof.col);
+  doc.setDrawColor(cr,cg,cb);doc.setLineWidth(0.5);doc.rect(M,y,CW,28,'S');
+  txt(prof.emoji+' '+prof.dim.toUpperCase(),M+4,y+7,7,prof.col,'bold');
+  txt(prof.name,M+4,y+16,14,prof.tc,'bold');
+  const descLines=doc.splitTextToSize(prof.desc,CW-8);
+  doc.setFontSize(8);doc.setFont('helvetica','normal');setColor('#334155');
+  doc.text(descLines.slice(0,3),M+4,y+23);
+  y+=34;
+
+  // Origen
+  rect(M,y,3,14,'#64748B');
+  txt('ORIGEN DE ESTE PATRÓN',M+5,y+5,7,'#1B2B5E','bold');
+  const orLines=doc.splitTextToSize(prof.origen,CW-8);
+  doc.setFontSize(8);setColor('#334155');doc.text(orLines,M+5,y+11);
+  y+=orLines.length*4+14;checkY(20);
+
+  // Dimensiones
+  rect(M,y,CW,8,'#1B2B5E');
+  txt('MIS 5 DIMENSIONES PSICOLÓGICAS',M+3,y+5.5,8,'#FFFFFF','bold');
+  y+=10;
+  DIMS.sort((a,b)=>pcts[b]-pcts[a]).forEach(d=>{
+    txt(DNAMES[d],M,y+3.5,7,'#64748B','normal');
+    txt(pcts[d]+'%',W-M-1,y+3.5,7,DCOLS[d],'bold');
+    doc.text('',0,0);
+    const[dr,dg,db]=hexToRGB(DCOLS[d]);
+    doc.setFillColor(220,220,220);doc.rect(M+50,y,CW-55,3,'F');
+    doc.setFillColor(dr,dg,db);doc.rect(M+50,y,(CW-55)*pcts[d]/100,3,'F');
+    y+=8;
+  });
+  y+=4;checkY(30);
+
+  // Fortalezas y bloqueos
+  rect(M,y,CW/2-1,8,'#0D9488');
+  txt('✅ FORTALEZAS',M+3,y+5.5,7,'#FFFFFF','bold');
+  rect(M+CW/2+1,y,CW/2-1,8,'#E85D30');
+  txt('⚠️ BLOQUEOS',M+CW/2+4,y+5.5,7,'#FFFFFF','bold');
+  y+=10;
+  const maxItems=Math.max(prof.str.length,prof.blk.length);
+  for(let i=0;i<maxItems;i++){
+    if(i<prof.str.length){txt('→ '+prof.str[i],M+2,y+3,7,'#085041');}
+    if(i<prof.blk.length){txt('→ '+prof.blk[i],M+CW/2+3,y+3,7,'#712B13');}
+    y+=7;
+  }
+  y+=5;checkY(60);
+
+  // Técnica 1
+  function renderTecnica(tec,headerColor){
+    checkY(50);
+    rect(M,y,CW,10,headerColor);
+    const lines1=doc.splitTextToSize(tec.nom,CW-6);
+    txt(lines1[0],M+3,y+6,9,'#FFFFFF','bold');
+    txt(tec.orig+' · '+tec.tiempo,M+3,y+9.5,6,'rgba(255,255,255,0.8)','italic');
+    y+=12;
+    rect(M,y,CW,6,'#F4F6FC');
+    txt('OBJETIVO',M+3,y+4.2,6,'#1B2B5E','bold');
+    y+=7;
+    const objL=doc.splitTextToSize(tec.obj,CW-4);
+    doc.setFontSize(7.5);setColor('#334155');doc.text(objL,M+2,y);y+=objL.length*3.8+3;
+    checkY(20);
+    rect(M,y,CW,6,'#F4F6FC');
+    txt('POR QUÉ FUNCIONA',M+3,y+4.2,6,'#1B2B5E','bold');
+    y+=7;
+    const pqL=doc.splitTextToSize(tec.pq,CW-4);
+    doc.setFontSize(7.5);setColor('#334155');doc.text(pqL,M+2,y);y+=pqL.length*3.8+3;
+    checkY(20);
+    rect(M,y,CW,6,'#F4F6FC');
+    txt('PASOS DEL EJERCICIO',M+3,y+4.2,6,'#1B2B5E','bold');
+    y+=8;
+    tec.pasos.forEach((paso,i)=>{
+      checkY(15);
+      const[hr,hg,hb]=hexToRGB(headerColor);
+      doc.setFillColor(hr,hg,hb);doc.circle(M+3,y,2,'F');
+      txt(String(i+1),M+3,y+0.8,5,'#FFFFFF','bold');
+      doc.setTextColor(0,0,0);
+      const pL=doc.splitTextToSize(paso,CW-8);
+      doc.setFontSize(7.5);setColor('#334155');doc.text(pL,M+7,y);
+      y+=pL.length*3.8+3;
     });
-  },200);
-}
+    y+=3;
+  }
+  renderTecnica(prof.t1,prof.col);
+  renderTecnica(prof.t2,'#0D9488');
 
-function descargarImagen(canvas){
-  const link=document.createElement('a');
-  link.download='mi-perfil-financiero-'+userName.split(' ')[0].toLowerCase()+'.png';
-  link.href=canvas.toDataURL('image/png');
-  link.click();
-  setTimeout(()=>alert('✅ Imagen guardada. Ahora puedes enviarla por WhatsApp desde tu galería de fotos.'),300);
+  // Rutina 21 días
+  checkY(50);
+  rect(M,y,CW,8,'#1B2B5E');
+  txt('RUTINA DE INTERVENCIÓN — 21 DÍAS',M+3,y+5.5,8,'#FFFFFF','bold');
+  y+=10;
+  const colW=(CW-4)/3;
+  prof.sem.forEach((s,i)=>{
+    const sx=M+i*(colW+2);
+    const[sr,sg,sb]=hexToRGB(prof.soft);
+    doc.setFillColor(sr,sg,sb);doc.rect(sx,y,colW,42,'F');
+    const[cr2,cg2,cb2]=hexToRGB(prof.col);
+    doc.setDrawColor(cr2,cg2,cb2);doc.setLineWidth(0.3);doc.rect(sx,y,colW,42,'S');
+    txt(s.n,sx+2,y+5,6,prof.col,'bold');
+    txt(s.t,sx+2,y+10,7,prof.tc,'bold');
+    const dL=doc.splitTextToSize(s.d,colW-4);
+    doc.setFontSize(6.5);setColor('#334155');doc.text(dL.slice(0,5),sx+2,y+16);
+    const aL=doc.splitTextToSize('→ '+s.a,colW-4);
+    doc.setFontSize(6.5);setColor(prof.col);doc.text(aL.slice(0,3),sx+2,y+36);
+  });
+  y+=48;checkY(25);
+
+  // Nota neurociencia
+  rect(M,y,3,18,'#1B2B5E');
+  txt('🧠 BASE NEUROCIENTÍFICA',M+5,y+5,7,'#1B2B5E','bold');
+  const ntL=doc.splitTextToSize(prof.nt,CW-8);
+  doc.setFontSize(7.5);setColor('#334155');doc.setFont('helvetica','italic');
+  doc.text(ntL.slice(0,5),M+5,y+11);
+  y+=ntL.slice(0,5).length*3.8+8;checkY(25);
+
+  // Perfil secundario
+  const[spr,spg,spb]=hexToRGB(secP.soft);
+  doc.setFillColor(spr,spg,spb);doc.rect(M,y,CW,22,'F');
+  const[scr,scg,scb]=hexToRGB(secP.col);
+  doc.setDrawColor(scr,scg,scb);doc.setLineWidth(0.3);doc.rect(M,y,CW,22,'S');
+  txt('PERFIL SECUNDARIO — TAMBIÉN PRESENTE EN TI',M+3,y+6,6,secP.col,'bold');
+  txt(secP.emoji+' '+secP.name,M+3,y+12,9,secP.tc,'bold');
+  txt('→ '+secP.t1.nom,M+3,y+17,7,'#64748B','normal');
+  txt('→ '+secP.t2.nom,M+3,y+21,7,'#64748B','normal');
+  y+=27;
+
+  // CTA final
+  checkY(20);
+  rect(M,y,CW,20,'#FFFBEB');
+  doc.setDrawColor(245,158,11);doc.setLineWidth(0.5);doc.rect(M,y,CW,20,'S');
+  doc.setFontSize(9);doc.setFont('helvetica','bold');setColor('#1B2B5E');
+  doc.text('¡Lleva este perfil al Módulo 1!',W/2,y+8,{align:'center'});
+  doc.setFontSize(7.5);doc.setFont('helvetica','normal');setColor('#64748B');
+  doc.text('Tu punto de partida para la transformación financiera de 90 días.',W/2,y+13,{align:'center'});
+  doc.text('Finanzas Personales Sin Complicaciones · Lisbeth Ochoa',W/2,y+18,{align:'center'});
+
+  // Pie de página en todas las páginas
+  const totalPages=doc.internal.getNumberOfPages();
+  for(let i=1;i<=totalPages;i++){
+    doc.setPage(i);
+    doc.setFontSize(6);setColor('#94A3B8');
+    doc.text('Finanzas Personales Sin Complicaciones · Lisbeth Ochoa · Test Psico-Financiero',W/2,293,{align:'center'});
+    doc.text('Página '+i+' de '+totalPages,W-M,293,{align:'right'});
+  }
+
+  const fname='perfil-psico-financiero-'+uName.split(' ')[0].toLowerCase().replace(/[^a-z]/g,'')+'.pdf';
+  doc.save(fname);
+  setTimeout(()=>{
+    btn.textContent='📄 Descargar mi resultado completo (PDF)';
+    btn.disabled=false;
+    alert('✅ PDF descargado.\n\nAhora búscalo en tus descargas y envíalo por WhatsApp o guárdalo donde quieras.');
+  },500);
 }
 
 function retryTest(){
